@@ -1,0 +1,109 @@
+<aura:component controller="ProjectCls"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+    access="global">
+    <aura:attribute name="Prjlist" type="Chikpea_Project__c" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:attribute name="hide" type="Boolean" default='true' />
+
+    <aura:attribute name="editVisible" type="Boolean" default='false' />
+    <aura:attribute name="isLoading" type="Boolean" default='false' />
+    
+
+    <lightning:recordEditForm 
+        recordId = "{!v.recordId}" 
+        objectApiName = "ChikPeaSSB__Chikpea_Project__c"
+        onsubmit = "{!c.handleSubmit}"
+        onsuccess = "{!c.UpdateProject}">
+        <lightning:messages />
+        <aura:if isTrue="{!v.isLoading}">
+            <div aura:id="spinnerId" class="slds-spinner_container">
+                <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </aura:if>
+        <table border="3">
+            <tr style="height: 18px;">
+                <td class="TableHeading" colspan="2">Make Project as Template&nbsp;</td>
+            </tr>
+            <tr style="height: 18px;">
+                <td style="min-width: 12em;">
+                    <aura:renderIf isTrue="{!v.hide}">
+                        <lightning:outputField fieldName="ChikPeaSSB__Templatize__c" class="slds-form-element_2-col" />
+                    </aura:renderIf>
+                    <aura:renderIf isTrue="{!v.editVisible}">
+                        <lightning:inputField fieldName="ChikPeaSSB__Templatize__c" class="slds-form-element_2-col" />
+                    </aura:renderIf>
+                </td>
+                <td style="width: 25.3993%; height: 18px;">
+                    <aura:renderIf isTrue="{!v.hide}">
+                        <lightning:outputField fieldName="ChikPeaSSB__Template_Name__c"
+                            class="slds-form-element_2-col" />
+                    </aura:renderIf>
+                    <aura:renderIf isTrue="{!v.editVisible}">
+                        <lightning:inputField fieldName="ChikPeaSSB__Template_Name__c"
+                            class="slds-form-element_2-col" />
+                    </aura:renderIf>
+                </td>
+            </tr>
+            <tr style="height: 18px;">
+                <td style="min-width: 12em;">
+                    <aura:renderIf isTrue="{!v.hide}">
+                        <lightning:outputField fieldName="ChikPeaSSB__Category__c" class="slds-form-element_2-col" />
+                    </aura:renderIf>
+                    <aura:renderIf isTrue="{!v.editVisible}">
+                        <lightning:inputField fieldName="ChikPeaSSB__Category__c" class="slds-form-element_2-col" />
+                    </aura:renderIf>
+                </td>
+                <td style="width: 25.3993%; height: 18px;">
+                    <aura:renderIf isTrue="{!v.hide}">&nbsp;Description
+                        <lightning:outputField fieldName="ChikPeaSSB__Template_Description__c"
+                            class="slds-form-element_2-col" variant="label-hidden" />
+                    </aura:renderIf>
+                    <aura:renderIf isTrue="{!v.editVisible}">&nbsp;Description
+                        <lightning:inputField fieldName="ChikPeaSSB__Template_Description__c"
+                            class="slds-form-element_2-col" variant="label-hidden" />
+                    </aura:renderIf>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 25.5648%; text-align: center;" colspan="2">
+
+                    <aura:renderIf isTrue="{!v.hide}">
+
+                        <p style="text-align: center;">
+                            <lightning:button 
+                                class="slds-m-top_small" 
+                                variant="brand" 
+                                onclick="{!c.allowToEdit}"
+                                name="Edit" 
+                                label="Edit" />
+                        </p>
+                    </aura:renderIf>
+
+                    <aura:renderIf isTrue="{!v.editVisible}">
+                        <p style="text-align: center;">
+                            <lightning:button 
+                                class="slds-m-top_small" 
+                                variant="Success" 
+                                type="submit" 
+                                name="update"
+                                label="Save" />
+
+                            <lightning:button 
+                                class="slds-m-top_small" 
+                                variant="destructive" 
+                                onclick="{!c.cancelPhase}"
+                                name="cancel" 
+                                label="Cancel" />
+                        </p>
+                    </aura:renderIf>
+                    <br />
+                </td>
+            </tr>
+        </table>
+    </lightning:recordEditForm>
+</aura:component>

@@ -1,0 +1,36 @@
+<template>
+    <table style="width: 100%; border-collapse: collapse; border-color: #FFFFFF;" border="3" cellpadding="5">
+        <tbody>
+        <tr bgcolor="#3482bd">
+        <td style="width: 150px;">Est Start Date</td>
+        <td style="width: 150px;">Project</td>
+        <td style="width: 150px;">Role</td>
+        <td style="width: 150px;">Est End Date</td>
+        <td style="width: 150px;">Capacity</td>
+        </tr>
+        
+        <template for:each={Staffrelatedrec} for:item="Staffrelated">
+        <tr bgcolor="#ccd7e7" key={Staffrelated.id}>
+            
+
+        <td style="width: 118px;">
+            {Staffrelated.ChikPeaSSB__Project_Start_Date__c}
+        </td>
+        <td style="width: 118px;">
+            {Staffrelated.ChikPeaSSB__Project_Name__c}
+        </td>
+        <td style="width: 118px;">
+            {Staffrelated.ChikPeaSSB__Role__c}
+        </td>
+        <td style="width: 118px;">
+            {Staffrelated.ChikPeaSSB__Project_End_Date__c}
+            </td>
+        <td style="width: 117px;">
+        </td>
+    
+        </tr>
+
+    </template>
+        </tbody>
+        </table>
+</template>

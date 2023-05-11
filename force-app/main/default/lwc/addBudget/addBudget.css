@@ -1,0 +1,28 @@
+.table-container {
+    /* padding: 1rem; */
+    border: 1px #ddd;
+    border-radius: 5px;
+}
+
+.custom_modal {
+    width: 70% !important;
+    max-width: 70%;
+}
+
+.phase-detail {
+    padding: 0 1rem;
+}
+
+.details-div {
+    margin-bottom: 2rem;
+}
+
+.details-heading {
+    font-size: medium;
+    font-weight: bold;
+}
+
+.resource-details {
+    padding: 0 1rem;
+
+}

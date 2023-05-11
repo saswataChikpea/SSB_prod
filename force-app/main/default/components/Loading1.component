@@ -1,0 +1,10 @@
+<apex:component >
+    <apex:attribute name="text" description="The text come after loading image." type="String" required="false"/>      
+    <center>
+    <div>
+    <apex:image url="{!URLFOR($Resource.LoadImg)}" alt="loading..." height="50" width="50" />&nbsp;
+    <div style="margin-top:5px;">
+    <font color="#0066FF" size="4" style="vertical-align:top;">{!text}</font></div>
+    </div>
+    </center>
+</apex:component>

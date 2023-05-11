@@ -1,0 +1,154 @@
+<aura:component controller = "ProjectTableData" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    
+    <aura:attribute name="ProjectList" type="Object"/>
+    <aura:attribute name="hide" type="Boolean" default='false'/>
+    <aura:attribute name="editVisible1" type="Boolean" default='false'/>
+    
+      <aura:attribute name="Buttonshelp" type="String" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:handler event="c:AddPhaseConection" action="{!c.PhaseCard}"/>
+   
+    <!-- Card view of the phase details -->
+    <aura:attribute name ="Phaselist" type="Project_Phase__c[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.PhaseCard}" />
+
+    <aura:html tag="style">
+        .slds-size_1-of-3, .slds-size--1-of-3 {
+        width: 33.%;
+        }
+    </aura:html>
+    <!-- Add Phase Starts-->
+    <br/>
+    <br/>
+    <table style="height: 26px;" width="606" >
+        <tbody>
+            <tr>
+                <td style="width: 295px; text-align: center;"> 
+                    <p style="text-align: right;">
+                        <lightning:button label="Add Phase" variant="brand" onclick="{!c.createRecord}" />
+                    
+                    <aura:renderIf isTrue="{!v.editVisible1}"> 
+                        
+                        <lightning:recordEditForm objectApiName="Project_Phase__c">
+                            <lightning:inputField fieldName="Name" aura:id="PName" required="true" access ="edit"/>
+                            
+                            <aura:if isTrue="{!v.hide}"> 
+                                <lightning:inputField fieldName="Weeks__c" aura:id="PWeek" access ="edit" />
+                            </aura:if>
+                            <table style="height: 50%;" width="598" cellspacing="0" cellpadding="10">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;"><lightning:inputField  fieldName="Is_Blended_Rate__c" aura:id="Blendedcheckbox" /></td>
+                                        <td style="width: 40%;"><lightning:inputField  fieldName="Blended_Rate__c" aura:id="BRate" /> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            
+                            <lightning:inputField  fieldName="Descriptions__c" aura:id="PDescription" required="true" />
+                            <lightning:button class="slds-m-top_small" variant="brand" onclick="{!c.InsertPhase}" type="submit" label="Save"/>
+                            <lightning:button class="slds-m-top_small"  variant ="destructive" onclick="{!c.CancelPhase}" label="Cancel"/>
+                            
+                        </lightning:recordEditForm>
+                        
+                        
+                    </aura:renderIf>    
+                    <br/>
+                    </p>
+                </td></tr></tbody></table>
+    
+   
+    <!-- Add Phase Ends-->
+    
+    <div class="slds-p-around_small">
+        <div class="slds-grid slds-wrap">
+            
+            <aura:iteration items="{!v.Phaselist}" var="Acc">
+                <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                  
+					<div class="Backgrnd">
+                    <lightning:card  title="{!Acc.Name}" iconName="action:new_note">
+                        
+                        <aura:set attribute="actions" >
+                            
+   <!-- <button class="slds-button slds-button_destructive" onclick="{!c.Isdelete}" Id="{!Acc.Id}">Del</button> -->
+                         
+                            <a onclick="{!c.Isdelete}" Id="{!Acc.Id}">
+                                <lightning:icon iconName="utility:delete" size="small" alternativeText="Delete" variant="error"/>
+                                <span class="slds-assistive-text">Delete</span>
+                            </a>
+                        </aura:set>
+                          <div class="slds-p-around--large">
+                        <lightning:recordEditForm recordId="{!Acc.Id}" objectApiName="Project_Phase__c" onsuccess="{!c.UpdatePhase}" >
+                            <lightning:messages />
+                           
+                            
+                            <table style="height: 100%;" width="607" cellspacing="0" cellpadding="5">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">&nbsp;<lightning:inputField fieldName="Name" required="true" aura:id="InName"/></td>
+                                        <td style="width: 50%;text-align: center;">&nbsp;<lightning:outputField fieldName="Status__c" default ="Open" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%;">&nbsp;<lightning:inputField fieldName="Is_Blended_Rate__c" aura:id="Isblnd"/></td>
+                                        <td style="width: 50%;">&nbsp;<lightning:inputField fieldName="Blended_Rate__c" aura:id="BlndRate"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                
+                            <!--
+                            <lightning:inputField fieldName="Descriptions__c" aura:id="InDes" />                            
+                        -->
+                            <table style="height: 60%;" width="606" cellspacing="0" cellpadding="5">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">&nbsp;<lightning:outputField fieldName="Est_time_of_Completion__c"/></td>
+                                        <td style="width: 50%;;">&nbsp;            <aura:if isTrue="{!v.hide}"> 
+                                            <lightning:inputField fieldName="Weeks__c"/>
+                                            </aura:if> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <table>
+                            <tbody>
+                                <tr>
+                                    <td style="width: 33%;">&nbsp;<lightning:outputField fieldName="Estimated_Rate__c"/></td>
+                                    <td style="width: 33%;">&nbsp;<lightning:outputField fieldName="Estimated_Cost__c"/></td>
+                                    <td style="width: 33%;">&nbsp;<lightning:outputField fieldName="Phase_Profit__c"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33%;">&nbsp;<lightning:outputField fieldName="Actual_Rate__c"/></td>
+                                    <td style="width: 33%;">&nbsp;<lightning:outputField fieldName="Actual_Cost__c"/></td>
+                                    <td style="width: 33%;">&nbsp;<lightning:outputField fieldName="Actual_Profit__c"/></td>
+                                </tr>
+                                
+                            </tbody>
+                              </table>
+                            
+                            <br/> 
+                            
+                           
+                            <div align="right" >
+                                <button class="slds-button slds-button_brand" type="onsubmit" >Save</button>
+                                <button class="slds-button slds-button_brand" onclick="{!c.AddRes}" Id="{!Acc.Id}">Resource</button>
+                                
+                            <!-- <lightning:button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Update" />-->
+                               
+                            </div>
+                              </lightning:recordEditForm>
+                            
+                              <br/>
+                                <div align="right" >
+                        </div>
+                        </div>
+                        </lightning:card>
+                    </div>
+                </div>
+            </aura:iteration>
+        </div>
+      </div>
+</aura:component>

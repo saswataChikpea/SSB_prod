@@ -1,0 +1,45 @@
+<apex:page renderAs="pdf" sidebar="false" showHeader="false">
+    <head>
+        <style>
+        @page {
+                size: A4;
+                margin-top: 40px;
+                margin-bottom: 60px;
+                margin-left: 40px;
+                margin-right: 40px;
+                /* @bottom-right {
+                    content: element(footer);
+                } */
+ 
+            }
+        body{
+                	size: A4;
+                	margin: 0 auto;
+                	margin-top: 40px;
+                	margin-bottom: 60px;
+                	margin-left: 40px;
+                	margin-right: 40px;
+                	font-family: Arial;
+                	
+        }
+        .dateInvoice{
+                	float: right;
+                	margin-right : 0;
+        }  
+        </style>
+    </head>
+        
+    <body>
+        <pre style="text-align: center;">Company Name/Logo                                                       Company Address</pre>
+        <div style="text-align: center;">
+                 	
+                <h1><Font face="Arial"><Font size="10">INVOICE</Font></Font>
+        
+    			</h1>
+        </div>
+        <div class="dateInvoice">
+                <p>Date - 11/24/22</p>
+                <p>Invoice No. - I1281</p>
+        </div>
+    </body>
+</apex:page>

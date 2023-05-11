@@ -1,0 +1,29 @@
+<template>
+    <span class="fa fa-star checked"></span>
+
+
+   
+    <div class="slds-m-top_medium slds-m-bottom_x-large">
+
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-tile label="Rating" type="media">
+
+                <div class="rate">
+                    <div class="rate">
+                        <input type="radio" id="star35" name="Rating" value="5" onclick={rating} />
+                        <label for="star35" title="text">5 stars</label>
+                        <input type="radio" id="star34" name="Rating" value="4" onclick={rating} />
+                        <label for="star34" title="text">4 stars</label>
+                        <input type="radio" id="star33" name="Rating" value="3" onclick={rating} />
+                        <label for="star33" title="text">3 stars</label>
+                        <input type="radio" id="star32" name="Rating" value="2" onclick={rating} />
+                        <label for="star32" title="text">2 stars</label>
+                        <input type="radio" id="star31" name="Rating" value="1" onclick={rating} />
+                        <label for="star31" title="text">1 star</label>
+                    </div>
+                </div>
+            </lightning-tile>
+          
+        </div>
+    </div>
+</template>

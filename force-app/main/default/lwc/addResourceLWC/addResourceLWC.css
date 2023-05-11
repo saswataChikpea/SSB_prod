@@ -1,0 +1,23 @@
+.main_body {
+    /* width: 80vw; */
+    background: rgb(243, 240, 240);
+    margin-top: 4rem;
+    padding: 1rem;
+    /* max-height: 50rem; */
+
+}
+
+.table_container {
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
+.table_header {
+    background: #ddd;
+}
+
+.details-heading {
+    font-size: medium;
+    font-weight: bold;
+    margin-top: 1rem;
+}

@@ -1,0 +1,5 @@
+<apex:page controller="test1">
+  <apex:form >
+      <apex:commandButton title="abc button" value="abc" action="{!testsharing}" reRender="id"></apex:commandButton>
+  </apex:form>
+</apex:page>

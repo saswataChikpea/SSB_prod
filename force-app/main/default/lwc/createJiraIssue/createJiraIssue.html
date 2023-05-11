@@ -1,0 +1,87 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div style="background: white;border-radius: 0.2em;">
+        <div class="slds-form" style="padding: 2em;">
+            <div class="slds-form-element slds-form-element_horizontal">
+                <label class="slds-form-element__label" for="horizontal-input-id-0">Project Name</label>
+                <div class="slds-form-element__control">
+                    <input type="text" name="name" id="horizontal-input-id-0" onchange={handleProjectFieldsOnchange}
+                        placeholder="Try a team name, project goal, milestone..." class="slds-input" />
+                </div>
+            </div>
+            <div class="slds-form-element slds-form-element_horizontal">
+                <label class="slds-form-element__label" for="horizontal-input-id-1">Project Key</label>
+                <div class="slds-form-element__control">
+                    <input type="text" name="key" id="horizontal-input-id-1" onchange={handleProjectFieldsOnchange}
+                        placeholder="Prefix for your project’s issue keys" class="slds-input" />
+                </div>
+            </div>
+            <div class="slds-form-element slds-form-element_horizontal">
+                <label class="slds-form-element__label" for="horizontal-input-id-02">Description</label>
+                <div class="slds-form-element__control">
+                    <textarea id="horizontal-input-id-02" name="text" onchange={handleDescriptionOnchange}
+                        placeholder="Add a description…" class="slds-textarea"></textarea>
+                </div>
+            </div>
+            <div class="slds-form" style="padding: 2em;">
+                <div class="slds-form-element slds-form-element_horizontal">
+                    <label class="slds-form-element__label" for="horizontal-input-id-01">Title</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" name="summary" id="horizontal-input-id-01" onchange={handleFieldsOnchange}
+                            placeholder="What needs to be done?" class="slds-input" />
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_horizontal">
+                    <label class="slds-form-element__label" for="horizontal-input-id-03">Description</label>
+                    <div class="slds-form-element__control">
+                        <textarea id="horizontal-input-id-03" name="text" onchange={handleDescriptionOnchange}
+                            placeholder="Add a description…" class="slds-textarea"></textarea>
+                    </div>
+                </div>
+                <!-- <fieldset class="slds-form-element slds-form-element_horizontal">
+                    <legend class="slds-form-element__legend slds-form-element__label">Checkbox Group Label</legend>
+                    <div class="slds-form-element__control">
+                        <div class="slds-checkbox">
+                            <input type="checkbox" name="default" id="checkbox-unique-id-9" value="checkbox-unique-id-9" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-9">
+                                <span class="slds-checkbox_faux"></span>
+                                <span class="slds-form-element__label">All opportunities owned by you</span>
+                            </label>
+                        </div>
+                        <div class="slds-checkbox">
+                            <input type="checkbox" name="default" id="checkbox-unique-id-10"
+                                value="checkbox-unique-id-10" />
+                            <label class="slds-checkbox__label" for="checkbox-unique-id-10">
+                                <span class="slds-checkbox_faux"></span>
+                                <span class="slds-form-element__label">All contacts in the account owned by you</span>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="slds-form-element slds-form-element_horizontal">
+                    <legend class="slds-form-element__legend slds-form-element__label">Radio Group Label</legend>
+                    <div class="slds-form-element__control">
+                        <span class="slds-radio">
+                            <input type="radio" id="radio-9" value="radio-9" name="options" />
+                            <label class="slds-radio__label" for="radio-9">
+                                <span class="slds-radio_faux"></span>
+                                <span class="slds-form-element__label">Lead generation</span>
+                            </label>
+                        </span>
+                        <span class="slds-radio">
+                            <input type="radio" id="radio-10" value="radio-10" name="options" />
+                            <label class="slds-radio__label" for="radio-10">
+                                <span class="slds-radio_faux"></span>
+                                <span class="slds-form-element__label">Education leads</span>
+                            </label>
+                        </span>
+                    </div>
+                </fieldset> -->
+                <button class="slds-button slds-button_brand" onclick={createJiraProject}>Jira Sync</button>
+                <button class="slds-button slds-button_brand" onclick={createJiraIssue}>Save Issue</button>
+
+            </div>
+        </div>
+
+    </div>
+</template>

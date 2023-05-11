@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Event template" >
+     <aura:attribute name="CallRes" type="String"/>
+</aura:event>

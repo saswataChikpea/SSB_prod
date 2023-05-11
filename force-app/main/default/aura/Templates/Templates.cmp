@@ -1,0 +1,104 @@
+<aura:component controller="TemplateCls"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,lightning:isUrlAddressable,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+    access="global">
+
+    <aura:handler name="init" value="{!this}" action="{!c.CardView}" />
+    <aura:handler name="init" value="{!this}" action="{!c.AccordinView}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="editVisible1" type="Boolean" default='false' />
+    <aura:attribute name="recordId" type="Id" access="public" />
+
+    <aura:attribute name="PrjList" type="List" />
+    <aura:html tag="style">
+        <!-- .slds-has-flexi-truncate {
+        flex: 0 0 0%;
+        min-width: 0;
+        }      -->
+        .usetemplatealign{
+        float:right;
+        margin-right: calc(16% - 27%);
+        }
+    </aura:html>
+
+    <div class="slds-grid slds-wrap">
+        <aura:iteration items="{!v.PrjList}" var="prj" indexVar="index">
+            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                <!--    <div class="{!prj.ChikPeaSSB__Category__c == 'Software development' ? 'slds-media__body lightGreen' : ''}" >        
+              -->
+                <div class="{!prj.ChikPeaSSB__Template_Color__c}">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td style="width:90%">
+                                    <span>{!prj.ChikPeaSSB__Category__c}</span>
+                                </td>
+                                <td style="width:10%;text-align:right">
+                                    <a onclick="{!c.Isdelete}" Id="{!prj.Id}">
+                                        <lightning:icon iconName="utility:delete" size="small" alternativeText="Delete"
+                                            variant="error" /> <span class="slds-assistive-text">Delete</span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">
+                                    <strong style="font-size: 18px; ">
+                                        <span style="
+                                                             color: #333333;
+                                                             display: block;
+                                                             word-wrap: break-word;
+                                                             width: 100%;
+                                                             white-space: normal;">
+                                            {!prj.ChikPeaSSB__Template_Name__c}
+                                        </span>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%;height: 150px">
+                                    <!--    <div class="{!prj.ChikPeaSSB__Category__c == 'Software development' ? 'slds-media__body lightGreen' : ''}" >        
+              -->
+                                    <div class="{!prj.ChikPeaSSB__Template_Color__c}">
+                                        <ui:outputRichText value="{!prj.ChikPeaSSB__Template_Description__c}" />
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <a onclick="{!c.Showphase}" Id="{!prj.Id}">
+                                    Show Phase
+                                </a>
+                                <aura:renderIf isTrue="{!prj.cardvisble}">
+
+                                    <br />
+                                    <aura:iteration items="{!prj.ChikPeaSSB__Project_Phases__r}" var="Ph">
+                                        <a onclick="{!c.PhaseRedirect}" id="{!Ph.Id}">
+                                            <br />
+                                            {!Ph.Name} <br />
+                                        </a>
+                                    </aura:iteration>
+                                </aura:renderIf>
+                            </tr>
+                            <tr>
+
+                                <div class="usetemplatealign">
+                                    <button class="slds-button slds-button_brand" onclick="{!c.NewProject}"
+                                        id="{!prj.Id}" type="button">Use Template</button>
+                                </div>
+                            </tr>
+                            <tr>
+                                <aura:renderIf isTrue="{!prj.cardvisble1}">
+                                    <div style="width: 80%;">
+                                        <c:TemplatesInput selectedCard="{!prj.Id}" opportunityID="{!v.recordId}" />
+                                    </div>
+                                </aura:renderIf>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </aura:iteration>
+    </div>
+
+
+</aura:component>

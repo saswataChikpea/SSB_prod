@@ -1,0 +1,46 @@
+<aura:component controller="TemplateCls"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,lightning:isUrlAddressable,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction"
+    access="global">
+
+
+    <aura:attribute name="empName" type="String" />
+    <aura:attribute name="emp" type="String" />
+    <aura:attribute name="AccountId" type="String" />
+    <aura:attribute name="opportunityID" type="Id" access="global" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="oppMap" type="Map" access="global" />
+    <aura:attribute name="oppName" type="String" access="global" />
+
+    <aura:attribute name="createAcc" type="Chikpea_Project__c" default="{
+                                                                        sobjectName : 'Chikpea_Project__c',
+                                                                        Name: '',
+                                                                        Account__c: ''}" />
+    <aura:attribute name="selectedCard" type="String" />
+
+    <!--<div>Id: {!v.selectedCard}</div>-->
+    <aura:attribute name="selectedId" type="String" />
+
+    <aura:attribute name="isDisabled" type="Boolean"  default="false"/>
+
+
+    <ui:inputText label="Enter the Project Name :" aura:id="conn" value="{!v.oppMap.opp_name}" />
+    <!-- <ui:inputText label="Enter the Project Name :" aura:id="conn" /> -->
+
+    <lightning:input aura:id="pricebook" name="priceBook" label="pb" value="{!v.oppMap.Opp_pb}" required="true"
+        class="slds-hide" />
+
+
+    <lightning:recordEditForm objectApiName="ChikPeaSSB__Chikpea_Project__c">
+        <lightning:inputField fieldName="ChikPeaSSB__Account__c" aura:id="AccName" label="Mock acc"
+            value="{!v.oppMap.account_id}" />
+        <!--required="true"-->
+        <p>
+            <lightning:button class="slds-m-top_small" variant="brand" onclick="{!c.showCaseDeletee}" disabled="{!v.isDisabled}"
+                name="Create Project" label="Create Project" />
+            <!-- <lightning:button class="slds-m-top_small" variant="Destructive" type="submit" name="Cancel" label="Cancel" />
+            -->
+        </p>
+    </lightning:recordEditForm>
+
+
+</aura:component>

@@ -1,0 +1,363 @@
+<aura:component controller="AddPhaseCls"
+  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+  access="global">
+
+  <aura:attribute name="ProjectList" type="Object" />
+  <aura:attribute name="ProjectList1" type="Object" />
+  <aura:attribute name="Hideweek" type="Boolean" default='false' />
+
+  <aura:attribute name="editVisible1" type="Boolean" default='false' />
+  <aura:attribute name="PrjHide" type="Boolean" default='false' />
+  <aura:attribute name="HideAddPhase" type="Boolean" default='true' />
+  <aura:attribute name="Buttonshelp" type="String" />
+
+  <aura:attribute name="PhaseOptions" type="List" default="[]" />
+  <aura:attribute name="PhaseIddep" type="String" />
+
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+  <aura:handler event="c:AddPhaseConection" action="{!c.PhaseCard}" />
+
+  <!-- Card view of the phase details -->
+  <aura:attribute name="Phaselist" type="List" />
+  <aura:attribute name="Phaselist1" type="List" />
+  <aura:handler name="init" value="{!this}" action="{!c.PhaseCard}" />
+
+  <aura:html tag="style">
+    .slds-size_1-of-3, .slds-size--1-of-3 {
+    width: 33.%;
+    }
+  </aura:html>
+  <!-- Add Phase Starts-->
+  <br />
+  <table style="border-collapse: collapse; width: 100%;" class="TableHeading" border="01">
+    <tbody>
+      <tr>
+        <td style="width: 100%;" class="TableHeading">
+          Project Phase(s)</td>
+      </tr>
+      <tr>
+        <td style="width: 100%;">
+          <table style="height: 26px;" width="606">
+            <tbody>
+
+
+
+              <tr>
+                <td style="width: 295px; text-align: center;">
+                  <p style="text-align: right;">
+                    <br />
+                    <aura:renderIf isTrue="{!v.HideAddPhase}">
+                      <lightning:button label="Add Phase" variant="brand" onclick="{!c.createRecord}" />
+                    </aura:renderIf>
+                    <aura:renderIf isTrue="{!v.editVisible1}">
+
+                      <lightning:recordEditForm objectApiName="ChikPeaSSB__Project_Phase__c">
+
+
+                        <table
+                          style="height: 72px; width: 100%; border-collapse: collapse;padding-right: 20px;border-color: #FFFFFF;"
+                          border="5" cellpadding="5">
+                          <tbody>
+                            <tr style="height: 18px;">
+                              <td class="TableHeading" colspan="2">Enter the Phase Details</td>
+                            </tr>
+                            <tr style="height: 18px;">
+                              <td style="width: 50%; height: 18px;">
+                                <lightning:inputField fieldName="Name" aura:id="PName"
+                                  onchange="{! c.handleFilesChange }" required="true" access="edit" />
+                              </td>
+                              <td style="width: 50%; height: 18px;">
+                                <lightning:inputField fieldName="ChikPeaSSB__Project__c" required="true"
+                                  value="{!v.recordId}" />
+                              </td>
+                            </tr>
+
+
+                            <!-- for Waterfall model -->
+
+                            <tr style="height: 18px;">
+
+                              <td style="width: 50%; height: 18px;">
+                                <!--  hidded for Vistu0zzo demo  -->
+                                <table style="height: 18px; width: 90%; " cellpadding="1">
+                                  <tbody>
+                                    <tr style="height: 18px;">
+                                      <td style="width: 60%; height: 18px;">
+                                        <lightning:inputField fieldName="ChikPeaSSB__Is_Blended_Rate__c"
+                                          aura:id="Blendedcheckbox" class="slds-form-element_2-col" />
+                                      </td>
+                                      <td style="width: 40%; height: 18px;">
+                                        <lightning:inputField fieldName="ChikPeaSSB__Blended_Rate__c" aura:id="BRate" />
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+
+                              </td>
+
+                              <td style="width: 50%; height: 18px;">
+                                <aura:renderIf isTrue="{!v.Hideweek}">
+                                  <lightning:inputField fieldName="ChikPeaSSB__Weeks__c" aura:id="PWeek"
+                                    access="edit" />
+                                </aura:renderIf>
+                              </td>
+
+                            </tr>
+
+
+                            <tr style="height: 18px;">
+                              <td style="width: 50%; height: 18px;" colspan="2">
+                                <lightning:inputField fieldName="ChikPeaSSB__Descriptions__c" aura:id="PDescription"
+                                  required="true" variant="label-hidden" />
+                              </td>
+                            </tr>
+                            <tr style="height: 18px;">
+                              <td style="width: 50%; height: 18px; text-align: center; " colspan="2">
+                                <lightning:button class="slds-m-top_small" variant="Success" onclick="{!c.InsertPhase}"
+                                  type="submit" label="TestSave" />
+
+
+                                <lightning:button class="slds-m-top_small" variant="destructive"
+                                  onclick="{!c.CancelPhase}" label="Cancel" />
+                                <br />
+                                <br />
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </lightning:recordEditForm>
+                    </aura:renderIf>
+                    <br />
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <!-- Add Phase Ends-->
+
+          <div class="slds-p-around_small">
+            <div class="slds-grid slds-wrap">
+
+              <aura:iteration items="{!v.Phaselist1}" var="Acc">
+                <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+
+                  <div class="Backgrnd">
+
+                    <lightning:card variant="Narrow">
+
+                      <aura:set attribute="title">
+                        {!Acc.Name}
+                      </aura:set>
+
+                      <aura:set attribute="actions">
+
+                        <!-- <button class="slds-button slds-button_destructive" onclick="{!c.Isdelete}" Id="{!Acc.Id}">Del</button> -->
+
+                        <a onclick="{!c.Isdelete}" Id="{!Acc.Id}">
+                          <lightning:icon iconName="utility:delete" size="small" alternativeText="Delete"
+                            variant="error" />
+                          <span class="slds-assistive-text">Delete</span>
+                        </a>
+                      </aura:set>
+                      <div class="slds-p-horizontal_xx-small">
+                        <lightning:recordEditForm recordId="{!Acc.Id}" objectApiName="ChikPeaSSB__Project_Phase__c"
+                          onsubmit="{!c.UpdatePhase}">
+                          <lightning:messages />
+
+                          <!--   <lightning:outputField fieldName="ChikPeaSSB__Phase_Num__c"  class="slds-form-element_2-col"/>
+                          -->
+                          <table style="width: 100%; border-collapse: collapse;" class="TableBg" border="5"
+                            cellpadding="5">
+                            <tbody>
+                              <!--Hided for Virtuozzo demo-->
+                              <tr>
+                                <td class="TableWIDTH">
+                                  <lightning:inputField fieldName="Is_Blended_Rate__c"
+                                    class="slds-form-element_2-col" />
+
+                                  <aura:if isTrue="{!Acc.HideEdit}">
+                                    <lightning:outputField fieldName="ChikPeaSSB__Is_Blended_Rate__c"
+                                      class="slds-form-element_2-col" />
+                                    <aura:set attribute="else">
+                                      <lightning:inputField fieldName="ChikPeaSSB__Is_Blended_Rate__c"
+                                        class="slds-form-element_2-col" />
+                                    </aura:set>
+                                  </aura:if>
+                                </td>
+                                <td class="TableWIDTH">
+                                  <aura:if isTrue="{!Acc.HideEdit}">
+                                    <lightning:outputField fieldName="ChikPeaSSB__Blended_Rate__c"
+                                      class="slds-form-element_2-col" />
+                                    <aura:set attribute="else">
+                                      <lightning:inputField fieldName="ChikPeaSSB__Blended_Rate__c"
+                                        class="slds-form-element_2-col" />
+                                    </aura:set>
+                                  </aura:if>
+
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="TableWIDTH">
+                                  <aura:if isTrue="{!Acc.HideEdit}">
+                                    <lightning:outputField fieldName="ChikPeaSSB__Phase_Status__c"
+                                      class="slds-form-element_2-col" default="Open" />
+                                    <aura:set attribute="else">
+                                      <lightning:inputField fieldName="ChikPeaSSB__Phase_Status__c"
+                                        class="slds-form-element_2-col" default="Open" />
+                                    </aura:set>
+                                  </aura:if>
+                                </td>
+                                <td class="TableWIDTH">
+                                  <aura:if isTrue="{!v.Hideweek}">
+                                    <aura:if isTrue="{!Acc.HideEdit}">
+                                      <lightning:outputField fieldName="ChikPeaSSB__Weeks__c"
+                                        class="slds-form-element_2-col" />
+                                      <aura:set attribute="else">
+                                        <lightning:inputField fieldName="ChikPeaSSB__Weeks__c"
+                                          class="slds-form-element_2-col" />
+                                      </aura:set>
+                                    </aura:if>
+                                  </aura:if>
+                                <td class="TableWIDTH">
+                                  <aura:if isTrue="{!Acc.HideEdit}">
+                                    <lightning:outputField fieldName="ChikPeaSSB__Dependencies__c"
+                                      class="slds-form-element_2-col" default="Open" />
+                                    <aura:set attribute="else">
+                                      <lightning:combobox name="general" label="Dependent On"
+                                        value="{!Acc.ChikPeaSSB__Dependencies__c}" placeholder="Select an Option"
+                                        options="{!v.PhaseOptions}" onchange="{!c.handleDepChange}" />
+                                    </aura:set>
+                                  </aura:if>
+                                </td>
+        </td>
+      </tr>
+      <!--Adding the Month field for virtuozzo
+    <tr>
+<td class="TableWIDTH">  
+   <aura:if isTrue="{!Acc.HideEdit}">
+    <lightning:outputField fieldName="ChikPeaSSB__Contract_Month__c"  class="slds-form-element_2-col"/>
+    <aura:set attribute="else">
+      <lightning:inputField fieldName="ChikPeaSSB__Contract_Month__c"  class="slds-form-element_2-col"/>
+    </aura:set>
+  </aura:if> 
+    </td>
+<td class="TableWIDTH">   
+   
+   
+  </td>
+</tr>
+    Month field section ends here-->
+
+      <tr>
+        <td class="TableWIDTH">
+          <aura:if isTrue="{!Acc.HideEdit}">
+            <lightning:outputField fieldName="ChikPeaSSB__Est_Start_date__c" class="slds-form-element_2-col"
+              default="Open" />
+            <aura:set attribute="else">
+              <lightning:outputField fieldName="ChikPeaSSB__Est_Start_date__c" class="slds-form-element_2-col"
+                default="Open" />
+            </aura:set>
+          </aura:if>
+        </td>
+        <td class="TableWIDTH">
+          <aura:if isTrue="{!Acc.HideEdit}">
+            <lightning:outputField fieldName="ChikPeaSSB__Est_End_Date__c" class="slds-form-element_2-col"
+              default="Open" />
+            <aura:set attribute="else">
+              <lightning:outputField fieldName="ChikPeaSSB__Est_End_Date__c" class="slds-form-element_2-col"
+                default="Open" />
+            </aura:set>
+          </aura:if>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td class="TableWIDTH">
+          <label class="slds-form-element__label" for="text-input-id-1">&nbsp;Est Hours
+            &nbsp;
+            <lightning:inputField fieldName="ChikPeaSSB__Estimated_Hours__c" class="slds-form-element_2-col"
+              variant="label-hidden" />
+          </label>
+        </td>
+        <td class="TableWIDTH">
+          <label class="slds-form-element__label" for="text-input-id-1">&nbsp;Act Hours
+            &nbsp;
+            <lightning:inputField fieldName="ChikPeaSSB__Act_hours__c" class="slds-form-element_2-col"
+              variant="label-hidden" />
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td class="TableWIDTH">
+          <lightning:outputField fieldName="ChikPeaSSB__Estimated_Rate__c" />
+        </td>
+        <td class="TableWIDTH">
+          <lightning:outputField fieldName="ChikPeaSSB__Actual_Rate__c" />
+        </td>
+      </tr>
+      <tr>
+        <td class="TableWIDTH">
+          <lightning:outputField fieldName="ChikPeaSSB__Estimated_Cost__c" />
+        </td>
+        <td class="TableWIDTH">
+          <lightning:outputField fieldName="ChikPeaSSB__Actual_Cost__c" />
+        </td>
+      </tr>
+      <tr>
+        <td class="TableWIDTH">
+          <lightning:outputField fieldName="ChikPeaSSB__Phase_Profit__c" />
+        </td>
+        <td class="TableWIDTH">
+          <lightning:outputField fieldName="ChikPeaSSB__Actual_Profit__c" />
+        </td>
+      </tr>
+      <tr>
+        <td class="TableWIDTH" style="text-align: center;" colspan="2">
+          <div style="padding: 0.5em 0;">
+            <aura:if isTrue="{!Acc.HideEdit}">
+              <button class="slds-button slds-button_brand ssb_button" onclick="{!c.EditPhaseCard}"
+                Id="{!Acc.Id}">Edit</button>
+              <button class="slds-button slds-button_brand ssb_button" onclick="{!c.AddRes}" Id="{!Acc.Id}">Phase
+                Details</button>
+              <aura:renderIf isTrue="{!Acc.HideEdit}">
+                <button class="slds-button slds-button_brand ssb_button" onclick="{!c.AddBud}" Id="{!Acc.Id}">
+                  Budget Req</button>
+              </aura:renderIf>
+
+              <aura:set attribute="else">
+
+                <lightning:button class="slds-m-top_small" variant="Success" type="submit" name="update" onclick="{!c.UpdatePhase}"
+                  label="SureSave" />
+
+                <lightning:button class="slds-m-top_small" variant="destructive" onclick="{!c.cancelcard}" name="cancel"
+                  label="Cancel" /> &nbsp;
+              </aura:set>
+            </aura:if>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  </lightning:recordEditForm>
+
+
+  </div>
+
+
+  </lightning:card>
+  </div>
+  </div>
+  </aura:iteration>
+  </div>
+  </div>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  <c:addBudget aura:id="addbudgetlwc" onbudgetchange="{!c.handleBudgetChange}" />
+</aura:component>

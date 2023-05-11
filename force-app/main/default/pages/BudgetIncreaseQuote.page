@@ -1,0 +1,674 @@
+<apex:page standardController="Chikpea_Project__c" extensions="BudgetIncreaseQuote" sidebar="false" showHeader="false"
+    applyBodyTag="false" standardStylesheets="false" renderAs="pdf">
+
+    <head>
+        <style>
+            @media print {
+                .noprint {
+                    display: none;
+                }
+            }
+
+            body {
+                font-family: "Arial", sans-serif;
+                font-style: normal;
+                padding: 10px;
+            }
+
+            @page {
+                size: A4;
+                margin-top: 40px;
+                margin-bottom: 60px;
+                margin-left: 40px;
+                margin-right: 40px;
+                @bottom-left {
+                    content: element(footer);
+                }
+
+            }
+
+            div.footer {
+                display: block;
+                position: running(footer);
+                /* background-color: red; */
+                padding: 10px;
+            }
+
+            .pagenumber:before {
+                content: counter(page);
+            }
+
+            .pagecount:before {
+                content: counter(pages);
+            }
+
+
+            .tbl_head {
+                font-weight: bold;
+                color: white;
+                background: #343857; //27285C;
+                line-height: 20px;
+                text-align: left;
+                padding: ".5rem auto .5rem .5rem";
+            }
+
+            .chikpea_logo {
+                background-repeat: no-repeat;
+                padding-top: 0px;
+                padding-left: 0px;
+                padding-bottom: 0px;
+                height: auto;
+                width: 220px;
+            }
+
+            .ssb_logo_td {
+                font-size: 20px;
+                display: flex;
+                justify-content: right;
+                align-items: center;
+                color: #5C4033;
+            }
+
+            .ssb_logo {
+                background-repeat: no-repeat;
+                padding-top: 0px;
+                padding-left: 0px;
+                padding-bottom: 0px;
+                height: 80px;
+                width: 120px;
+            }
+
+            .project_proposal {
+                font-weight: bold;
+                color: #343857; //#908b8b;
+                font-size: 20px;
+                padding-top: 20px;
+            }
+
+            .companyName {
+                font-size: 20px;
+                font-weight: bold
+            }
+
+            hr.solid {
+                border-top: 1px solid #bbb;
+            }
+
+            .project1col {
+                width: 30%;
+                font-size: 16px;
+                font-weight: bold;
+                padding-bottom: 5px
+            }
+
+            /* .smallPadding {
+                padding: 5px 0px;
+            } */
+
+            .phaseDiv {
+                font-size: 12px;
+                margin-top: 15px;
+            }
+
+            .companyDiv {
+                font-size: 12px;
+            }
+
+            .signatureDiv {
+                font-size: 12px;
+                margin-top: 50px;
+
+            }
+
+            .projectDiv {
+                font-size: 12px;
+            }
+
+            .companyTable {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .companyTable td {
+                /* padding-bottom: 5px; */
+            }
+
+            .projectTable {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .projectTable td {
+                padding: 10px;
+                /* text-align: top; */
+            }
+
+            #phase {
+                font-family: Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            #phase td {
+                /* border-bottom: 1px solid #ddd; */
+                padding: 10px;
+            }
+
+            #phase td.empty {
+                border: 0;
+            }
+
+            #phase td.description {
+                max-width: 200px;
+            }
+
+            #phase tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #phase th {
+                border: 1px solid #04AA6D;
+                text-align: left;
+                padding: 12px 6px;
+                background-color: #04AA6D;
+                color: white;
+            }
+
+            .clientDetails {
+                border-bottom: 1px solid #bbb;
+            }
+
+            .signatureTd {
+                vertical-align: bottom;
+                padding-bottom: 20px;
+                padding-right: 20px;
+            }
+
+            .signatureSpan {
+                border-top: 1px dotted #ddd;
+                padding: 5px 10px;
+            }
+
+            .signatureConpanyTd {
+                padding-right: 30px;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+
+            .pageBreak {
+                page-break-before: always;
+            }
+
+            .firstDiv {
+                padding-top: 180px
+            }
+
+            .projectHeader {
+                font-weight: bold;
+                font-size: 16px
+            }
+
+            .termAndConditions {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .termDiv {
+                margin-bottom: 20px
+            }
+
+            .termDiv .title {
+                font-size: 16px;
+                font-weight: bold
+            }
+
+            .termDiv .termbody {
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <div width="100%">
+        <apex:pageMessages escape="false"></apex:pageMessages>
+    </div>
+    <div>
+        <table width="100%" align="center" border="0">
+            <tr>
+                <td align="left">
+                </td>
+                <td align="right">
+                    <img class="chikpea_logo" src="https://o2brocks-dev-ed--chikpeassb.ap5.visual.force.com/resource/1652948570000/ChikPeaSSB__ChikpeaLogo"
+                    />
+                </td>
+            </tr>
+        </table>
+
+        <div class="firstDiv">
+            <p>
+                Dear {!projectContact.name},
+            </p>
+            <p>
+                Thank you for offering us the opportunity to work with your company. We hope that you find the attached proposal for our
+                services acceptable. Should you wish to review or discuss the line items in detail, feel free to contact
+                your ChikPea associate.
+            </p>
+            <p>
+                <table>
+                    <tr>
+                        <td>Regards,</td>
+                    </tr>
+                    <tr>
+                        <td>ChikPea Management Team</td>
+                    </tr>
+                </table>
+            </p>
+            <p>
+                <table>
+                    <tr>
+                        <td>ChikPea Inc.</td>
+                    </tr>
+                    <tr>
+                        <td>www.chikpea.com</td>
+                    </tr>
+                    <tr>
+                        <td>sales@chikpea.com</td>
+                    </tr>
+                </table>
+            </p>
+
+        </div>
+    </div>
+    <div width="100%" class="companyDiv pageBreak">
+        <table width="100%" align="center" border="0" class="companyTable">
+            <tr>
+                <td align="left">
+                    <table>
+                        <tr>
+                            <td class="project1col">
+                                <span class="clientDetails">Quotation To</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="companyName">Whispir</td>
+                        </tr>
+                        <tr>
+                            <td>360 Collins St, Melbourne</td>
+                        </tr>
+                        <tr>
+                            <td>Victoria, 3000, Australia</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a> www.whispir.com</a>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+
+                <td align="right">
+                    <img class="chikpea_logo" src="https://o2brocks-dev-ed--chikpeassb.ap5.visual.force.com/resource/1652948570000/ChikPeaSSB__ChikpeaLogo"
+                    />
+                </td>
+                <!-- <td class="ssb_logo_td">
+                    Produced and Executed using
+                    <img class="ssb_logo" src="https://o2brocks-dev-ed--chikpeassb.ap5.visual.force.com/resource/1652948345000/ChikPeaSSB__SSBLogo"
+                    />
+                </td> -->
+            </tr>
+
+        </table>
+    </div>
+    <div class="project_proposal">Budget Increase Quotation</div>
+
+    <hr class="solid" />
+
+    <div class="projectDiv">
+        <table width="100%" align="center" border="0" class="projectTable">
+            <!-- <tr>
+                <td align="left" class="project1col">
+                    Project Detail
+                </td>
+            </tr> -->
+            <tr>
+                <td align="left">
+                    Project
+                </td>
+                <td>
+                    {!projectDetails.Name}
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    Description
+                </td>
+                <td>
+                    <!-- {!projectDtails.ChikPeaSSB__Project_Description__c} -->
+                    <apex:outputText escape="false" value="{!projectDetails.Project_Description__c}"></apex:outputText>
+                </td>
+            </tr>
+            <!-- <tr>
+                <td align="left">
+                    Project Specification
+                </td>
+                <td>
+                    <apex:outputText escape="false" value="{!projectDetails.Project_Specifications__c}"></apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    Project Goals
+                </td>
+                <td>
+                    <apex:outputText escape="false" value="{!projectDetails.Project_Goals__c}"></apex:outputText>
+                </td>
+            </tr> -->
+
+        </table>
+    </div>
+    <div class="phaseDiv">
+        <tr>
+            <td align="left" class="project1col smallPadding">
+                Increase Detail
+            </td>
+        </tr>
+        <table width="100%" align="center" border="0" id="phase">
+            <!-- <tr>
+                <td align="left" class="project1col">
+                </td>
+            </tr> -->
+            <thead class="tbl_head">
+                <tr>
+                    <th> No. </th>
+                    <th> Phase Name </th>
+                    <!-- <th> Phase Desc </th> -->
+                    <th> Start Date </th>
+                    <th> End Date </th>
+                    <th> Est Hours </th>
+                    <th> Cost </th>
+                    <th> Act Hours </th>
+                    <th> Act Cost </th>
+                    <th>Incr Hours</th>
+                    <th>Incr Cost</th>
+                </tr>
+            </thead>
+            <apex:variable var="count" value="{!1}" />
+            <tbody>
+                <apex:repeat value="{!incresedPhaseDetails}" var="res" rendered="{!incresedPhaseDetails.size <> 0}">
+                    <tr>
+                        <td>{!count}</td>
+                        <td>{!res.Name}</td>
+                        <!-- <td class="description">
+                            <apex:outputText escape="false" value="{!res.ChikPeaSSB__Descriptions__c}"></apex:outputText>
+                        </td> -->
+                        <td>
+                            <apex:outputText value="{0,date,MM/dd/yyyy}">
+                                <apex:param value="{!res.Est_Start_date__c}" />
+                            </apex:outputText>
+                            <!-- <apex:outputText escape="false" value="{!res.Est_Start_date__c}"></apex:outputText> -->
+                            <!-- {!res.Est_Start_date__c} -->
+                        </td>
+                        <td>
+                            <apex:outputText value="{0,date,MM/dd/yyyy}">
+                                <apex:param value="{!res.Est_End_Date__c}" />
+                            </apex:outputText>
+                            <!-- {!res.Est_End_Date__c} -->
+                        </td>
+                        <td>{!res.ChikPeaSSB__Estimated_Hours__c}</td>
+                        <td>{!res.ChikPeaSSB__Estimated_Rate__c}</td>
+                        <td>{!res.ChikPeaSSB__Act_hours__c}</td>
+                        <td>{!res.ChikPeaSSB__Actual_Cost__c}</td>
+                        <td>{!res.ChikPeaSSB__Increased_Hours__c}</td>
+                        <td>{!res.ChikPeaSSB__Increased_Rate__c}</td>
+                    </tr>
+                    <tr rendered="{!(res.ChikPeaSSB__Reason_for_Increment__C)}">
+                        <td colspan="10">
+                            <!-- <div> -->
+                            <div style="font-size:10px; background:rgb(244, 242, 242); padding: 5px 10px">
+                                Reason: &nbsp;
+                                <apex:outputText escape="false" value="{!res.Reason_for_Increment__c}"></apex:outputText>
+
+                            </div>
+                        </td>
+
+                    </tr>
+                    <apex:variable value="{!count+1}" var="count" />
+                </apex:repeat>
+            </tbody>
+            <!-- <tr>
+                <td>1</td>
+                <td> Requirement </td>
+                <td> This is to generate all the requirements for the project.</td>
+                <td> 20-06-2022 </td>
+                <td> 20-06-2022 </td>
+                <td>$5000</td>
+            </tr> -->
+
+
+            <tr>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td>Estimate</td>
+                <td>${!subTotalIncrement}</td>
+            </tr>
+            <tr>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td>Tax @ {!taxPercent}%</td>
+                <td> ${!taxAmountIncrement}</td>
+            </tr>
+            <tr>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <td class="empty"></td>
+                <th>Total Price</th>
+                <th>${!totalAmountIncrement}</th>
+            </tr>
+
+        </table>
+    </div>
+
+    <div width="100%" class="signatureDiv">
+        <table width="100%" align="center" border="0" class="companyTable">
+            <tr>
+                <!-- <td align="left">
+                    <table>
+                        <tr>
+                            <td class="companyName">ChikPea Inc</td>
+                        </tr>
+                        <tr>
+                            <td>Unit 504 West Bengal 700091</td>
+                        </tr>
+                        <tr>
+                            <td>Ambuja EcoCentre</td>
+                        </tr>
+                        <tr>
+                            <td>EM Block, Sector V</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a>chikpea.com</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td> -->
+                <td align="left" class="signatureTd">
+                    <!-- <span class="signatureSpan"> Client Signature</span> -->
+                </td>
+                <td align="right" class="signatureTd">
+                    <!-- <div style="width: 100%; height: 100%"> -->
+                    <span class="signatureSpan"> Authorized Signature</span>
+                    <!-- </div> -->
+                </td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td align="right" class="signatureConpanyTd">ChikPea Inc</td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="footer">
+        <div align="left" class="signatureTd">
+            <span class="signatureSpan"> Client Signature</span>
+        </div>
+    </div>
+    <div class="projectDiv pageBreak">
+        <table width="100%" align="center" border="0" class="projectTable">
+            <!-- <tr>
+                <td align="left" class="project1col">
+                    Project Detail
+                </td>
+            </tr> -->
+            <!-- <thead > -->
+            <tr>
+                <td align="left" class="projectHeader">
+                    Project
+                </td>
+                <td class="projectHeader">
+                    {!projectDetails.Name}
+                </td>
+            </tr>
+            <!-- </thead> -->
+            <tr>
+                <td align="left">
+                    Description
+                </td>
+                <td>
+                    <!-- {!projectDtails.ChikPeaSSB__Project_Description__c} -->
+                    <apex:outputText escape="false" value="{!projectDetails.Project_Description__c}"></apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    Specification
+                </td>
+                <td>
+                    <apex:outputText escape="false" value="{!projectDetails.Project_Specifications__c}"></apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    Goals
+                </td>
+                <td>
+                    <apex:outputText escape="false" value="{!projectDetails.Project_Goals__c}"></apex:outputText>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="project_proposal">Terms and Conditions</div>
+
+    <hr class="solid" />
+
+    <!-- </div> -->
+    <div class="termAndConditions">
+        <div class="termDiv">
+            <p class="title"> 1. Application of Terms and Conditions</p>
+            <p class="termbody">1.1 The Supplier shall supply, and the Customer OR Reseller shall purchase the Goods and Services in accordance
+                with the quotation and sales order confirmation which shall be subject to these Terms and Conditions; and
+                1.2 The Contract shall be to the exclusion of any other terms and conditions subject to which any such quotation
+                is accepted or purported to be accepted, or any such order is made or purported to be made, by the Customer
+                or Reseller.</p>
+        </div>
+        <div class="termDiv">
+            <p class="title"> 2. Definitions and Interpretation</p>
+            <p class="termbody">2.1 Unless the context otherwise requires, each reference in these Terms and Conditions to: 2.1.1 “writing”,
+                and any cognate expression, includes a reference to any communication effected by electronic or facsimile
+                transmission or similar means; 2.1.2 a statute or a provision of a statute is a reference to that statute
+                or provision as amended or re-enacted at the relevant time; 2.1.3 “these Terms and Conditions” is a reference
+                to these Terms and Conditions and any Schedules as amended or supplemented at the relevant time; 2.1.4 a
+                Schedule is a schedule to these Terms and Conditions; and 2.1.5 a Clause or paragraph is a reference to a
+                Clause of these Terms and Conditions (other than the Schedules) or a paragraph of the relevant Schedule.
+                2.1.6 a “Party” or the “Parties” refer to the parties to these Terms and Conditions.</p>
+        </div>
+        <div class="termDiv">
+            <p class="title">
+                3. Basis of Sale and Service
+            </p>
+            <p class="termbody">
+                3.1 The Supplier’s employees or agents are not authorised to make any representations concerning the Goods or Services unless
+                confirmed by the Supplier in writing. In entering into the Contract, the Customer or Reseller acknowledges
+                that it does not rely on, and waives any claim for breach of, any such representations which are not so confirmed.
+                3.2 No variation to these Terms and Conditions shall be binding unless agreed in writing between the authorised
+                representatives of the Customer or Reseller and the Supplier. 3.3 Sales literature, price lists and other
+                documents issued by the Supplier in relation to the Goods and Services are subject to alteration without
+                notice and do not constitute offers to sell the Goods which are capable of acceptance. No contract for the
+                sale of the Goods and Services shall be binding on the Supplier unless the Supplier has issued a quotation
+                which is expressed to be an offer to sell the Goods and Services or has accepted an order placed by the Customer
+                or Reseller by whichever is the earlier
+            </p>
+        </div>
+        <div class="termDiv">
+            <p class="title">
+                3. Basis of Sale and Service
+            </p>
+            <p class="termbody">
+                3.1 The Supplier’s employees or agents are not authorised to make any representations concerning the Goods or Services unless
+                confirmed by the Supplier in writing. In entering into the Contract, the Customer or Reseller acknowledges
+                that it does not rely on, and waives any claim for breach of, any such representations which are not so confirmed.
+                3.2 No variation to these Terms and Conditions shall be binding unless agreed in writing between the authorised
+                representatives of the Customer or Reseller and the Supplier. 3.3 Sales literature, price lists and other
+                documents issued by the Supplier in relation to the Goods and Services are subject to alteration without
+                notice and do not constitute offers to sell the Goods which are capable of acceptance. No contract for the
+                sale of the Goods and Services shall be binding on the Supplier unless the Supplier has issued a quotation
+                which is expressed to be an offer to sell the Goods and Services or has accepted an order placed by the Customer
+                or Reseller by whichever is the earlier
+            </p>
+        </div>
+        <div class="termDiv">
+            <p class="title">
+                3. Basis of Sale and Service
+            </p>
+            <p class="termbody">
+                3.1 The Supplier’s employees or agents are not authorised to make any representations concerning the Goods or Services unless
+                confirmed by the Supplier in writing. In entering into the Contract, the Customer or Reseller acknowledges
+                that it does not rely on, and waives any claim for breach of, any such representations which are not so confirmed.
+                3.2 No variation to these Terms and Conditions shall be binding unless agreed in writing between the authorised
+                representatives of the Customer or Reseller and the Supplier. 3.3 Sales literature, price lists and other
+                documents issued by the Supplier in relation to the Goods and Services are subject to alteration without
+                notice and do not constitute offers to sell the Goods which are capable of acceptance. No contract for the
+                sale of the Goods and Services shall be binding on the Supplier unless the Supplier has issued a quotation
+                which is expressed to be an offer to sell the Goods and Services or has accepted an order placed by the Customer
+                or Reseller by whichever is the earlier
+            </p>
+        </div>
+        <div class="termDiv">
+            <p class="title">
+                3. Basis of Sale and Service
+            </p>
+            <p class="termbody">
+                3.1 The Supplier’s employees or agents are not authorised to make any representations concerning the Goods or Services unless
+                confirmed by the Supplier in writing. In entering into the Contract, the Customer or Reseller acknowledges
+                that it does not rely on, and waives any claim for breach of, any such representations which are not so confirmed.
+                3.2 No variation to these Terms and Conditions shall be binding unless agreed in writing between the authorised
+                representatives of the Customer or Reseller and the Supplier. 3.3 Sales literature, price lists and other
+                documents issued by the Supplier in relation to the Goods and Services are subject to alteration without
+                notice and do not constitute offers to sell the Goods which are capable of acceptance. No contract for the
+                sale of the Goods and Services shall be binding on the Supplier unless the Supplier has issued a quotation
+                which is expressed to be an offer to sell the Goods and Services or has accepted an order placed by the Customer
+                or Reseller by whichever is the earlier
+            </p>
+        </div>
+    </div>
+
+
+    <!-- chikpea https://o2brocks-dev-ed--chikpeassb.ap5.visual.force.com/resource/1652948570000/ChikPeaSSB__ChikpeaLogo -->
+    <!-- https://o2brocks-dev-ed--chikpeassb.ap5.visual.force.com/resource/1652948345000/ChikPeaSSB__SSBLogo -->
+</apex:page>

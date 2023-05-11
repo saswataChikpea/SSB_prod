@@ -1,0 +1,319 @@
+<aura:component controller="ProjectTableData"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+    access="global">
+
+    <lightning:navigation aura:id="navigation" />
+    <aura:attribute name="Reschild" type="String" />
+    <aura:attribute name="Reslist" type="Resource__c[]" />
+    <aura:attribute name="Reslist1" type="Resource__c[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.ResCard}" />
+    <aura:attribute name="viewId" type="String" />
+    <aura:attribute name="reloadForm" type="boolean" default="false" />
+    <aura:attribute name="hide" type="string" default="false" />
+    <aura:attribute name="hideEst" type="string" default="true" />
+    <aura:attribute name="Buttonshelp" type="String" />
+    <aura:attribute name="showModal" type="boolean" default="false" />
+
+    <aura:attribute name="Numbersuport" type="Integer" default="0" />
+
+    <aura:attribute name="StaffOptions" type="List" default="[]" />
+    <aura:attribute name="Resourceidd" type="String" />
+
+
+
+
+    <aura:registerEvent name="loadMyEvent" type="c:ResourseStgings" />
+
+    <!-- <aura:handler event="c:CallResCard" action="{!c.ResCard}"/> -->
+
+    <aura:handler name="setValues" event="c:CallResCard" action="{!c.Redirects}" />
+
+    <aura:html tag="style">
+        .slds-size_1-of-4, .slds-size--1-of-4 {
+        width: 25%;
+        }
+    </aura:html>
+
+    <table style="border-collapse: collapse; width: 100%;" border="01">
+        <tbody>
+            <tr>
+                <td style="width: 100%;" class="TableHeading">Phase Resource(s)</td>
+            </tr>
+            <tr>
+                <td style="width: 100%;">
+                    <div class="slds-p-around_small">
+                        <div class="slds-grid slds-wrap">
+
+                            <aura:iteration items="{!v.Reslist}" var="Acc">
+                                <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                                    <lightning:card iconName="custom:custom15" variant="Narrow">
+                                        <aura:set attribute="title">
+                                            {!Acc.ChikPeaSSB__Item__r.Name}
+                                        </aura:set>
+                                        <aura:set attribute="actions">
+                                            <!-- <button class="slds-button slds-button_destructive" onclick="{!c.Isdelete}" Id="{!Acc.Id}">Del</button>-->
+
+                                            <a onclick="{!c.Isdelete}" Id="{!Acc.Id}">
+                                                <lightning:icon iconName="utility:delete" size="small"
+                                                    alternativeText="Delete" variant="error" />
+                                                <span class="slds-assistive-text">Delete</span>
+                                            </a>
+
+                                        </aura:set>
+                                        <div class="slds-p-horizontal_xx-small">
+
+                                            <lightning:recordEditForm recordId="{!Acc.Id}"
+                                                objectApiName="ChikPeaSSB__Resource__c" onsuccess="{!c.UpdateRes}">
+                                                <lightning:messages />
+
+                                                <table style="width: 100%; border-collapse: collapse; height: 126px;"
+                                                    class="TableBg" border="5" cellpadding="5">
+                                                    <tbody>
+                                                        <tr style="height: 18px;">
+                                                            <td style="width: 50%; height: 18px;">
+                                                                <label class="slds-form-element__label"
+                                                                    for="text-input-id-1">&nbsp;ID
+                                                                    <lightning:outputField fieldName="Name"
+                                                                        variant="label-hidden" />
+                                                                </label>
+
+                                                            </td>
+                                                            <td style="width: 50%; height: 18px;">
+
+                                                                <table style="border-collapse: collapse; width: 100%;"
+                                                                    border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <aura:if isTrue="{!v.hide}">
+                                                                                <td style="width: 50%;">
+                                                                                    <div class="slds-col">
+                                                                                        <span>
+                                                                                            <aura:if
+                                                                                                isTrue="{!Acc.HideEdit}">
+                                                                                                <lightning:outputField
+                                                                                                    fieldName="ChikPeaSSB__Estimated_Efforts__c"
+                                                                                                    class="slds-form-element_2-col"
+                                                                                                    aura:id="Esteffts"
+                                                                                                    style="width:70px;" />
+                                                                                                <aura:set
+                                                                                                    attribute="else">
+                                                                                                    <lightning:inputField
+                                                                                                        fieldName="ChikPeaSSB__Estimated_Efforts__c"
+                                                                                                        class="slds-form-element_2-col"
+                                                                                                        aura:id="Esteffts"
+                                                                                                        style="width:70px;"
+                                                                                                        value="{!v.Numbersuport}" />
+
+                                                                                                </aura:set>
+                                                                                            </aura:if>
+
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </aura:if>
+                                                                            <td style="width: 50%;">
+                                                                                <aura:if isTrue="{!v.hide}">
+                                                                                    <div class="slds-col">
+                                                                                        <span>
+                                                                                            <aura:if
+                                                                                                isTrue="{!Acc.HideEdit}">
+                                                                                                <label
+                                                                                                    class="slds-form-element__label"
+                                                                                                    for="text-input-id-2">&nbsp;Est
+                                                                                                    Hours
+                                                                                                    <lightning:outputField
+                                                                                                        fieldName="ChikPeaSSB__Estimated_Hours__c"
+                                                                                                        class="slds-form-element_2-col"
+                                                                                                        variant="label-hidden" />
+                                                                                                </label>
+                                                                                                <aura:set
+                                                                                                    attribute="else">
+                                                                                                    <lightning:inputField
+                                                                                                        fieldName="ChikPeaSSB__Estimated_Hours__c"
+                                                                                                        class="slds-form-element_2-col"
+                                                                                                        variant="label-hidden" />
+
+                                                                                                </aura:set>
+                                                                                            </aura:if>
+
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </aura:if>
+                                                                                <aura:if isTrue="{!v.hideEst}">
+
+                                                                                    <div class="slds-col">
+                                                                                        <span>
+                                                                                            <aura:if
+                                                                                                isTrue="{!Acc.HideEdit}">
+                                                                                                <lightning:outputField
+                                                                                                    fieldName="ChikPeaSSB__Estimated_Hours__c"
+                                                                                                    class="slds-form-element_2-col" />
+                                                                                                <aura:set
+                                                                                                    attribute="else">
+                                                                                                    <lightning:inputField
+                                                                                                        fieldName="ChikPeaSSB__Estimated_Hours__c"
+                                                                                                        class="slds-form-element_2-col" />
+                                                                                                </aura:set>
+                                                                                            </aura:if>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </aura:if>
+                                                                            </td>
+                                                                        </tr>
+
+
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr style="height: 18px;">
+                                                            <td style="width: 50%; height: 18px;">
+
+                                                                <aura:if isTrue="{!Acc.HideEdit}">
+                                                                    <lightning:outputField
+                                                                        fieldName="ChikPeaSSB__Staff_Rate__c"
+                                                                        aura:id="Esteffts" style="width:70px;"
+                                                                        class="slds-form-element_2-col" />
+                                                                    <aura:set attribute="else">
+                                                                        <lightning:inputField
+                                                                            fieldName="ChikPeaSSB__Staff_Rate__c"
+                                                                            aura:id="Esteffts" style="width:70px;"
+                                                                            class="slds-form-element_2-col" />
+                                                                    </aura:set>
+                                                                </aura:if>
+                                                            </td>
+                                                            <td style="width: 50%; height: 18px;">
+                                                                <lightning:outputField fieldName="ChikPeaSSB__Profit__c"
+                                                                    style="width:80px;" />
+                                                            </td>
+                                                        </tr>
+
+
+
+                                                        <tr style="height: 18px;">
+                                                            <td style="width: 50%; height: 18px;">
+                                                                <lightning:outputField
+                                                                    fieldName="ChikPeaSSB__Rate__c" />
+                                                            </td>
+                                                            <td style="width: 50%; height: 18px;">
+                                                                <lightning:outputField
+                                                                    fieldName="ChikPeaSSB__Cost__c" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="height: 18px;">
+                                                            <td style="width: 50%; height: 18px;">
+                                                                <lightning:outputField
+                                                                    fieldName="ChikPeaSSB__Actual_Accrued__c" />
+                                                            </td>
+                                                            <td style="width: 50%; height: 18px;">
+                                                                <lightning:outputField
+                                                                    fieldName="ChikPeaSSB__Billable_Accrued__c" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="height: 18px;">
+                                                            <td style="width: 50%; height: 18px;">
+                                                                <lightning:outputField
+                                                                    fieldName="ChikPeaSSB__Remaining_Hours__c" />
+                                                            </td>
+                                                            <td style="width: 50%; height: 18px;">
+                                                                <lightning:outputField
+                                                                    fieldName="ChikPeaSSB__Res_Profit__c"
+                                                                    style="width:80px;" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="height: 18px;">
+                                                            <td style="width: 50%; height: 18px;">
+                                                                <lightning:outputField
+                                                                    fieldName="ChikPeaSSB__Billed__c" />
+                                                            </td>
+                                                            <td style="width: 50%; height: 18px;">
+                                                                <lightning:outputField
+                                                                    fieldName="ChikPeaSSB__Actual_Cost__c" />
+                                                            </td>
+                                                        </tr>
+                                                        <!--staffing Fields-->
+                                                        <tr>
+
+                                                            <td style="width: 50%; height: 18px;">
+                                                                <aura:if isTrue="{!Acc.HideEdit}">
+                                                                    <lightning:outputField
+                                                                        fieldName="ChikPeaSSB__Staff__c" />
+                                                                    <aura:set attribute="else">
+                                                                        <lightning:combobox name="general"
+                                                                            label="Add Staff" placeholder="Select Staff"
+                                                                            options="{!v.StaffOptions}"
+                                                                            onchange="{!c.handlestaffChange}" />
+                                                                    </aura:set>
+                                                                </aura:if>
+
+                                                            </td>
+                                                            <td>
+                                                                <lightning:outputField
+                                                                    fieldName="ChikPeaSSB__Invite_Sent__c" />
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr style="height: 18px;">
+
+                                                            <td style="width: 50%; height: 18px;" colspan="2">
+
+
+                                                                <aura:if isTrue="{!Acc.HideEdit}">
+                                                                    <lightning:outputField
+                                                                        fieldName="ChikPeaSSB__Additional_Requirements__c"
+                                                                        aura:id="Esteffts" />
+                                                                    <aura:set attribute="else">
+                                                                        <lightning:inputField
+                                                                            fieldName="ChikPeaSSB__Additional_Requirements__c"
+                                                                            aura:id="Esteffts" />
+                                                                    </aura:set>
+                                                                </aura:if>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td style="text-align: center;" colspan="2">
+                                                                <div style="padding: 0.5em 0;">
+                                                                    <aura:if isTrue="{!Acc.HideEdit}">
+                                                                        <button class="slds-button slds-button_brand ssb_button"
+                                                                            onclick="{!c.EditPhaseCard}"
+                                                                            Id="{!Acc.Id}">Edit</button>
+                                                                        <button class="slds-button slds-button_brand ssb_button"
+                                                                            onclick="{!c.getDetail}"
+                                                                            Id="{!Acc.Id}">History</button>
+                                                                        <!-- Have hidded for virtuozzo demo -->
+                                                                        <button class="slds-button slds-button_brand ssb_button"
+                                                                            onclick="{!c.Invitestaff}"
+                                                                            Id="{!Acc.Id}">Invite</button>
+                                                                        <aura:set attribute="else">
+                                                                            <lightning:button class="slds-m-top_small"
+                                                                                variant="Success" type="submit"
+                                                                                name="update" label="Save" />
+                                                                            <lightning:button class="slds-m-top_small"
+                                                                                variant="destructive"
+                                                                                onclick="{!c.cancelcard}" name="cancel"
+                                                                                label="Cancel" />
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </lightning:recordEditForm>
+                                        </div>
+                                    </lightning:card>
+                                </div>
+                            </aura:iteration>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</aura:component>

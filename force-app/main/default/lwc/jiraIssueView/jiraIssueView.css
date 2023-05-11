@@ -1,0 +1,71 @@
+:host {
+    --sds-c-card-color-background: #a1d6e4;
+}
+
+.clearfix {
+  
+}
+
+.card {
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  box-shadow: 0 7px 8px rgba(0, 0, 0, 0.15);
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+  margin: 20px;
+  position: relative;
+  vertical-align: top;
+  width: 300px;
+  
+  
+}
+
+.main-content {
+  padding: 15px 15px 0;
+}
+
+.status-label {
+  border-radius: 2px;
+  color: #f5f5f5;
+  display: inline-block;
+  font-size: 12px;
+  padding: 5px 10px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.positive .status-label,
+.positive .sub-note {
+  background: #50C97F;
+}
+
+.neutral .status-label,
+.neutral .sub-note {
+  background: #E9AE36;
+}
+
+.negative .status-label,
+.negative .sub-note {
+  background: #E7504E;
+}
+
+
+.card-title {
+  font-weight: 700;
+  padding: 5px 0;
+}
+
+
+
+.info-listing {
+  font-size: 15px;
+  margin: 0 0 0 30px;
+  
+}
+
+.sub-note {
+  color: #f5f5f5;
+  font-size: 14px;
+  line-height: 135%;
+  padding: 15px;
+}

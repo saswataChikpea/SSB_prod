@@ -1,0 +1,293 @@
+<template>
+
+    <lightning-record-edit-form record-id={recordId} object-api-name="ChikPeaSSB__Staffing__c" onsubmit ={handleSubmit} onsuccess={handlesucessClick}>
+        
+          <div class="">
+            <table style="height: 273px; width: 100.661%; border-collapse: collapse; border-color: #000000; border-style: ridge;" border="3">
+              <tbody>
+              <tr>
+              <td style="width: 100%;">
+              <table style="height: 261px; width: 100%; border-collapse: collapse; border-color: #ffffff;" border="2">
+              <tbody>
+              <tr style="height: 18px;">
+              <td style="width: 69.5364%; height: 18px;"><span style="text-decoration: underline; color: #333333;">
+                
+                <!--Staff Name-->
+                <template if:true ={editstaff}>
+                  <lightning-input-field field-name ="Name" >
+                  </lightning-input-field>
+            </template>
+            <template if:true ={editstaff}>        
+              <lightning-input-field field-name ="ChikPeaSSB__Last_Name__c">
+              </lightning-input-field>
+        </template>
+  
+            <template if:false ={editstaff}>
+            <p style="font-size: 15px;text-decoration: underline;"></strong>
+            <lightning-output-field field-name="ChikPeaSSB__Name_Binding__c" variant="label-hidden"></lightning-output-field>
+          </strong></p>
+            </template>
+
+             
+              </span></td>
+              <td style="width: 30.4636%; height: 18px;"  rowspan="4"><table style="border-collapse: collapse; width: 100%; height: 100%;" border="1">
+                <tbody>
+                <tr style="height: 88px;">
+                <td style="width: 100%; height: 25%;" bgcolor="silver">
+                  <!--Work Information Starts-->
+                  <div class="slds-p-around_xx-small">
+                  <table style="width: 100%; border-collapse: collapse;" border="0" cellpadding="5">
+                    <tbody>
+                    <tr>
+                    <td style="width: 40%;">&nbsp;Work Contact :</td>
+                    <td style="width: 60%;">
+                      <template if:true ={editstaff}>
+                        <lightning-input-field  field-name ="ChikPeaSSB__Work_Contact__c" variant="label-hidden" >
+                        </lightning-input-field>
+                  </template>
+                  <template if:false ={editstaff}>
+                    <lightning-output-field field-name ="ChikPeaSSB__Work_Contact__c" variant="label-hidden">
+                    </lightning-output-field>
+                  </template>
+    
+                    </td>
+                    </tr>
+                    <tr>
+                    <td style="width: 40%;">&nbsp;Personal :</td>
+                    <td style="width: 60%;">
+                      <template if:true ={editstaff}>
+                         
+                        <lightning-input-field field-name ="ChikPeaSSB__Personal__c" variant="label-hidden">
+                        </lightning-input-field>
+                  </template>
+                  <template if:false ={editstaff}>
+                    <lightning-output-field field-name="ChikPeaSSB__Personal__c" variant="label-hidden">
+                    </lightning-output-field>
+                  </template>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td style="width: 40%;">&nbsp;Location :</td>
+                    <td style="width: 60%;">
+                      <template if:true ={editstaff}>
+                   
+                        <lightning-input-field field-name ="ChikPeaSSB__Location__c" variant="label-hidden">
+                        </lightning-input-field>
+                  </template>
+                  <template if:false ={editstaff}>
+                    <lightning-output-field field-name="ChikPeaSSB__Location__c" variant="label-hidden">
+                    </lightning-output-field>
+                  </template>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td style="width: 40%;">&nbsp;TimeZone :</td>
+                    <td style="width: 60%;">
+                      <template if:true ={editstaff}>
+                      <lightning-input-field field-name ="ChikPeaSSB__Time_Zone__c" variant="label-hidden">
+                      </lightning-input-field>
+                </template>
+                <template if:false ={editstaff}>
+                  <lightning-output-field field-name="ChikPeaSSB__Time_Zone__c" variant="label-hidden">
+                  </lightning-output-field>
+                </template></td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    </div>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    
+        </td>
+              </tr>
+              <tr style="height: 18px;">
+              <td style="width: 69.5364%; height: 18px;">Employe Status:</td>
+              
+              </tr>
+              <tr style="height: 18px;">
+              <td style="width: 69.5364%; height: 18px;">
+                <!--Employee status -->
+                <template if:true ={editstaff}>
+                     
+                  <lightning-input-field field-name ="ChikPeaSSB__Employee_Status__c" variant="label-hidden">
+                  </lightning-input-field>
+            </template>
+            <template if:false ={editstaff}>
+              <lightning-output-field field-name="ChikPeaSSB__Employee_Status__c" variant="label-hidden"></lightning-output-field>
+            </template>
+              </td>
+              
+              </tr>
+              <tr style="height: 18px;">
+              <td style="width: 69.5364%; height: 18px;">
+                Resource Role:
+              </td>
+             
+              </tr>
+              <tr style="height: 18px;">
+              <td style="width: 69.5364%; height: 18px;">
+                <!--Resource Role-->
+                <template if:true ={editstaff}>
+                  <lightning-dual-listbox name="languages"
+              label="Select Roles"
+              source-label="Available"
+              selected-label={selecetedrolelist}
+              field-level-help="This is a dual listbox"
+              options={options}
+              value={values}
+              onchange={onrolevaluechange}></lightning-dual-listbox>
+            </template>
+            <template if:false ={editstaff}>
+              <lightning-output-field field-name="ChikPeaSSB__Staff_Roles__c" variant="label-hidden">
+              </lightning-output-field>
+            </template></td>
+              <td style="width: 30.4636%; height: 72px;" rowspan="7">
+              <table style="height: 78px; width: 100%; border-collapse: collapse; border-color: #000000; border-style: groove;" border="0">
+              <tbody>
+              <tr>
+              <td style="width: 100%;">
+                <!--Staff image Section-->
+
+               <template if:true ={imageUrl}>
+                <img src ={imageUrl} alt={altText} class="image" >
+                  </template>
+                                 
+                  <template if:true ={editstaff}> 
+                  <lightning-file-upload
+                      label="Add Image"
+                      name="fileUploader"
+                      accept={acceptedFormats}
+                      record-id={recordId}
+                      file-field-name="Guest_Record_fileupload__c"
+                      file-field-value={encryptedToken}
+                      onuploadfinished={handleUploadFinished}
+                      multiple>
+              </lightning-file-upload>
+              </template></br>
+              <div class="slds-p-around_xx-small">
+                <!--Buttons-->
+                <template if:false ={editstaff}>
+                <lightning-button variant="brand-outline" label="Edit" title="Edit" onclick={handleEdit} class="slds-p-around_xxx-small"></lightning-button>
+                <lightning-button variant="destructive" label="Del" title="Del" onclick={handleClickDel} class="slds-p-around_xxx-small" ></lightning-button>
+                <lightning-button variant="Success" label="CV" title="CV" onclick={handleClickCV} class="slds-p-around_xxx-small"></lightning-button>
+                <!-- <lightning-button variant="brand-outline" label="LinkedIn" title="LinkedIn" onclick={handleClickLinkedIn} class="slds-m-left_x-small"></lightning-button>
+                -->
+                <lightning-button variant="brand-outline" label="Email" title="Email" onclick={handleClickEmail} class="slds-p-around_xxx-small"></lightning-button>
+                
+                </template>
+                <template if:true ={editstaff}> 
+                  <lightning-button variant="destructive" label="Cancel" title="Cancel" onclick={handleCancelDel} class="slds-p-around_xxx-small"></lightning-button>
+                  <lightning-button variant="Success" label="Save" title="Successful action" onclick={handlesucessClick} type="submit" class="slds-p-around_xxx-small"></lightning-button>
+          
+                </template>
+              </div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </td>
+              </tr>
+              <tr style="height: 18px;">
+              <td style="width: 69.5364%; height: 18px;">Certification:</td>
+              </tr>
+              <tr style="height: 18px;">
+              <td style="width: 69.5364%; height: 18px;">
+                <!--Certification Values-->
+                <template if:true ={editstaff}>
+                  <lightning-input-field field-name ="ChikPeaSSB__Certifications__c" variant="label-hidden">
+                  </lightning-input-field>
+            </template>
+            <template if:false ={editstaff}>
+              <lightning-output-field field-name="ChikPeaSSB__Certifications__c" variant="label-hidden">
+              </lightning-output-field>
+            </template>
+              </td>
+              </tr>
+              <tr style="height: 0px;">
+              <td style="width: 69.5364%; height: 117px;" rowspan="5">
+              <table style="height: 53px; width: 100%; border-collapse: collapse; border-color: #ffffff;" border="1">
+              <tbody>
+              <tr style="height: 35px;" bgcolor="#3482bd">
+              <td style="width: 30%; height: 35px;"><span style="color: #ffffff;"><strong>&nbsp;Project History</strong></span></td>
+              <td style="width: 15%; height: 35px;"><span style="color: #ffffff;"><strong>&nbsp;Date</strong></span></td>
+              <td style="width: 20%; height: 35px;"><span style="color: #ffffff;"><strong>&nbsp;Role</strong></span></td>
+              <td style="width: 5%; height: 35px;">
+              <p><span style="color: #ffffff;"><strong>&nbsp;Score</strong></span></p>
+              <p><span style="color: #ffffff;"><strong>&nbsp;(1-5)</strong></span></p>
+              </td>
+              <td style="width: 30%; height: 35px;"><span style="color: #ffffff;"><strong>&nbsp;Comments</strong></span></td>
+              </tr>
+              <template for:each={StaffPrjCmplted} for:item="Staffreview">
+              <tr style="height: 18px;" bgcolor="#ccd7e7" key={Staffreview.id}>
+              <td style="width: 30%; height: 18px;">&nbsp;{Staffreview.ChikPeaSSB__Project_Name__c}</td>
+              <td style="width: 10%; height: 18px;">&nbsp;{Staffreview.ChikPeaSSB__Project_End_Date__c}</td>
+              <td style="width: 20%; height: 18px;">&nbsp;{Staffreview.ChikPeaSSB__Role__c}</td>
+              <td style="width: 5%; height: 18px;">&nbsp;</td>
+              <td style="width: 35%; height: 18px;">&nbsp;</td>
+              </tr>
+            </template>
+              </tbody>
+              </table>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+            </div>
+            <!--Capacity Table Starts Here-->
+          <table style="width: 100%; border-collapse: collapse; border-color: #FFFFFF;" border="3" class="Capspacing">
+        <tbody>
+        <tr bgcolor="#3482bd">
+        <td style="width: 150px;"><span style="color: #ffffff;"><strong>&nbsp;Est Start Date</strong></span></td>
+        <td style="width: 150px;"><span style="color: #ffffff;"><strong>&nbsp;Project</strong></span></td>
+        <td style="width: 150px;"><span style="color: #ffffff;"><strong>&nbsp;Role</strong></span></td>
+        <td style="width: 150px;"><span style="color: #ffffff;"><strong>&nbsp;Est End Date</strong></span></td>
+        <td style="width: 150px;"><span style="color: #ffffff;"><strong>&nbsp;Capacity</strong></span></td>
+        </tr>
+        
+        <template for:each={Staffrelatedrec} for:item="Staffrelated">
+        <tr bgcolor="#ccd7e7" key={Staffrelated.id}>
+            
+
+        <td style="width: 118px;">
+          <lightning-formatted-date-time
+          value={Staffrelated.ChikPeaSSB__Project_Start_Date__c}
+          year="numeric"
+          day="2-digit"
+          month="long"
+          time-zone="UTC">
+        </lightning-formatted-date-time>
+        </td>
+        <td style="width: 118px;">
+            {Staffrelated.ChikPeaSSB__Project_Name__c}
+            
+        </td>
+        <td style="width: 118px;">
+            {Staffrelated.ChikPeaSSB__Role__c}
+        </td>
+        <td style="width: 118px;">
+            <lightning-formatted-date-time
+          value={Staffrelated.ChikPeaSSB__Project_End_Date__c}
+          year="numeric"
+          day="2-digit"
+          month="long"
+          time-zone="UTC">
+        </lightning-formatted-date-time>
+            </td>
+        <td style="width: 117px;">
+        </td>
+    
+        </tr>
+
+    </template>
+        </tbody>
+        </table>
+       
+      
+    </lightning-record-edit-form>
+</template>

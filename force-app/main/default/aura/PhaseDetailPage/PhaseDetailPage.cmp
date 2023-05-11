@@ -1,0 +1,179 @@
+<aura:component controller="PhaseCmpCls"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:actionOverride"
+    access="global">
+
+    <aura:attribute name="Phaselist" type="Project_Phase__c" />
+
+    <aura:attribute name="hide" type="Boolean" default='false' />
+
+    <aura:attribute name="hide1" type="Boolean" default='true' />
+
+    <aura:attribute name="editVisible" type="Boolean" default='false' />
+
+    <aura:handler name="init" value="{!this}" action="{!c.ResCard}" />
+
+
+    <aura:registerEvent name="clrValues" type="c:CallResCard" />
+
+    <lightning:recordEditForm recordId="{!v.recordId}" objectApiName="ChikPeaSSB__Project_Phase__c"
+        onsuccess="{!c.UpdatePhase}">
+
+        <lightning:messages />
+
+        <table class="Tableborder" border="3" width="100%" cellpadding="15" cellspacing="15">
+            <tbody>
+
+                <tr style="height: 18px;">
+
+                    <td colspan="2">
+
+                        <table style=" width: 100%;" border="0">
+                            <tbody>
+                                <tr>
+                                    <td class="TableHeading" colspan="2">Details</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width: 50%;">
+                        <aura:renderIf isTrue="{!v.hide1}">
+                            <a onclick="{!c.Redirect}" Id="{!v.recordId}">
+                                <lightning:outputField fieldName="ChikPeaSSB__Project__c"
+                                    class="slds-form-element_2-col" />
+                            </a>
+                        </aura:renderIf>
+                        <aura:renderIf isTrue="{!v.editVisible}">
+                            <lightning:inputField fieldName="Name" class="slds-form-element_2-col" />
+                        </aura:renderIf>
+                    </td>
+
+                    <td style="width: 50%;">
+
+
+
+                        <aura:renderIf isTrue="{!v.editVisible}">
+                            <lightning:inputField fieldName="ChikPeaSSB__Status__c" class="slds-form-element_2-col" />
+                        </aura:renderIf>
+                        <aura:renderIf isTrue="{!v.hide1}">
+                            <lightning:outputField fieldName="ChikPeaSSB__Status__c" class="slds-form-element_2-col" />
+                        </aura:renderIf>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%;">
+                        <aura:renderIf isTrue="{!v.editVisible}">
+                            <lightning:outputfield fieldName="ChikPeaSSB__Est_Start_date__c"
+                                class="slds-form-element_2-col" />
+                        </aura:renderIf>
+                        <aura:renderIf isTrue="{!v.hide1}">
+                            <lightning:outputField fieldName="ChikPeaSSB__Est_Start_date__c"
+                                class="slds-form-element_2-col" />
+                        </aura:renderIf>
+                    </td>
+                    <td style="width: 50%;">
+                        <aura:renderIf isTrue="{!v.editVisible}">
+                            <lightning:outputfield fieldName="ChikPeaSSB__Est_End_Date__c"
+                                class="slds-form-element_2-col" />
+                        </aura:renderIf>
+                        <aura:renderIf isTrue="{!v.hide1}">
+                            <lightning:outputfield fieldName="ChikPeaSSB__Est_End_Date__c"
+                                class="slds-form-element_2-col" />
+                        </aura:renderIf>
+                    </td>
+                </tr>
+                <!-- have hidded for Virtuozzo demo-->
+                <tr>
+                    <td style="width: 50%;">
+                        <aura:renderIf isTrue="{!v.editVisible}">
+                            <lightning:inputField fieldName="ChikPeaSSB__Is_Blended_Rate__c"
+                                class="slds-form-element_2-col" />
+                        </aura:renderIf>
+                        <aura:renderIf isTrue="{!v.hide1}">
+                            <lightning:outputField fieldName="ChikPeaSSB__Is_Blended_Rate__c"
+                                class="slds-form-element_2-col" />
+                        </aura:renderIf>
+                    </td>
+                    <td style="width: 50%;">
+                        <aura:renderIf isTrue="{!v.editVisible}">
+                            <lightning:inputfield fieldName="ChikPeaSSB__Blended_Rate__c"
+                                class="slds-form-element_2-col" />
+                        </aura:renderIf>
+                        <aura:renderIf isTrue="{!v.hide1}">
+                            <lightning:outputfield fieldName="ChikPeaSSB__Blended_Rate__c"
+                                class="slds-form-element_2-col" />
+                        </aura:renderIf>
+                    </td>
+                </tr>
+                <aura:if isTrue="{!v.hide}">
+                    <tr>
+                        <td style="width: 50%;">
+
+                            <aura:renderIf isTrue="{!v.editVisible}">
+
+                                <lightning:inputField fieldName="ChikPeaSSB__Weeks__c"
+                                    class="slds-form-element_2-col" />
+
+                            </aura:renderIf>
+
+                            <aura:renderIf isTrue="{!v.hide1}">
+
+                                <lightning:outputField fieldName="ChikPeaSSB__Weeks__c"
+                                    class="slds-form-element_2-col" />
+
+                            </aura:renderIf>
+
+                        </td>
+                        <td style="width: 50%;">
+
+
+                        </td>
+                    </tr>
+                </aura:if>
+                <tr>
+                    <td style="width: 100%;" colspan="2">&nbsp;
+                        <aura:renderIf isTrue="{!v.editVisible}">
+                            <lightning:inputfield aura:id="AddressState" fieldName="ChikPeaSSB__Descriptions__c"
+                                variant="label-hidden" />
+                        </aura:renderIf>
+                        <aura:renderIf isTrue="{!v.hide1}">
+                            <label class="slds-form-element__label" for="text-input-id-1">&nbsp;Description
+                                <lightning:outputfield aura:id="AddressState" fieldName="ChikPeaSSB__Descriptions__c"
+                                    variant="label-hidden" />
+                            </label>
+                        </aura:renderIf>
+                        <br />
+
+                        <aura:renderIf isTrue="{!v.hide1}">
+
+                            <p style="text-align: center;">
+                                <lightning:button class="slds-m-top_small" variant="brand" onclick="{!c.ERecord}"
+                                    name="Edit" label="Edit" />
+                            </p>
+                        </aura:renderIf>
+
+                        <aura:renderIf isTrue="{!v.editVisible}">
+                            <p style="text-align: center;">
+                                <lightning:button class="slds-m-top_small" variant="Success" type="submit" name="update"
+                                    label="Save" />
+
+                                <lightning:button class="slds-m-top_small" variant="destructive"
+                                    onclick="{!c.cancelPhase}" name="cancel" label="Cancel" />
+                            </p>
+                        </aura:renderIf>
+
+
+                        <br />
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
+    </lightning:recordEditForm>
+</aura:component>

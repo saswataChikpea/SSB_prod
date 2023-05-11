@@ -1,0 +1,17 @@
+.THIS .TableBg {
+    background-color: #DEF2F1;border-color: #FEFFFF;
+}
+
+.THIS .TableHeading {
+		width: 145px; background-color: darkgray; text-align: center;font-weight: bold;padding: 6px;
+}
+.THIS .Tableborder {
+		height: 47%;
+}
+.THIS .TableBg {
+    background-color: gainsboro;
+}
+
+.THIS .ButtonAlign {
+    text-align: right;
+}

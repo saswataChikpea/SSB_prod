@@ -1,0 +1,24 @@
+@isTest
+public class CongaconvetqtToOrdTest {
+
+    static testmethod void testMtd(){
+        Account acc=new Account(name='acc1');
+        insert(acc);
+     ChikPeaO2B__Price_Book__c pb=new ChikPeaO2B__Price_Book__c(Name='PB1',ChikPeaO2B__Active__c=true);
+        insert(pb);
+        ChikPeaO2B__quote__c q=new ChikPeaO2B__quote__c(ChikPeaO2B__Account__c=acc.id,ChikPeaO2B__Price_Book__c=pb.id);
+        //insert(q);
+     
+     //ChikPeaO2B__Quote__c q= new ChikPeaO2B__Quote__c();
+     q.ChikPeaO2B__Status__c='Open';
+     q.ChikPeaO2B__Payment_Term__c='Pay on Receipt';
+     q.ChikPeaSSB__New_Payment_Term__c= 'Pay on Receipt';
+     insert q;
+        
+     Test.startTest();
+     
+     CongaconvetqtToOrd.QuotetoOrd(new List<id>{q.Id});
+        
+     Test.stopTest();
+    }
+}

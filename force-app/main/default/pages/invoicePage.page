@@ -1,0 +1,278 @@
+<apex:page standardStylesheets="true" renderAs="pdf">
+    
+        <head>
+            <style>
+                body{
+                	size: A4;
+                	margin: 0 auto;
+                	margin-top: 40px;
+                	margin-bottom: 60px;
+                	margin-left: 40px;
+                	margin-right: 40px;
+                	font-family: Arial;
+                	
+                }
+           
+                table,th,td{
+                    border: 1px solid #5b9bd5;
+                    text-align: center;
+                    border-collapse: collapse; <!-- Not working in visualforce-->
+                    padding: 10px;
+                }
+                .dateInvoice{
+                	float: right;
+                	margin-right : 0;
+                }
+                
+                .borderLine{
+                	border : 0.5px solid black;
+                	margin-left: 350px;
+                	margin-right: 330px;
+                }
+                .billTo{
+                	color: blue;
+                	margin-left: 350px;
+                	border-bottom: 2px solid blue;
+                }
+                .contactDetails{
+                	text-align: left;
+                	margin-left: 40px;
+                	
+                }
+                .helloSaswata{
+                	margin-left: 350px;
+                }
+                .grandTotal{
+                	margin-left : 780px;
+                	padding : 10px;
+                	width: 70px;
+                	text-decoration : underline;
+            		<!--display : inline-block;-->
+                	float : left;
+                	
+                }
+                .grandTotal2{
+                	margin-left : 780px;
+                	
+            		<!--display : inline-block;-->
+                	float : left;
+                	
+                }
+                .amountTotal
+                {
+                	padding : 10px;
+                	margin-left : 850px;
+                }
+                .pad{
+                	padding-top : 5px;
+                	padding-bottom : 5px;
+                }
+                .remarks{
+                	margin-left: 350px;
+                	display : inline-block;
+                }
+                .parent{
+                	float:right;
+                	margin-left:550px;
+                }
+                .taxRate{
+                	float : left;
+                	margin-left: 695px;
+                	
+                	
+                }
+                .subTotal{
+                	float : left;
+                	margin-left: 695px;
+                }
+                .rightSide{
+                	float : left;
+                	margin-left: 695px;
+                }
+                .makeBox{
+                	border: 1px solid black;
+                	margin-left : 350px;
+                	height : 65px;
+                	width : 240px;
+                }
+                
+               
+          
+            </style>
+			<!-- CSS only -->
+                       
+        </head>
+        <body>
+            <pre style="text-align: center;">Company Name/Logo                                                       Company Address</pre>
+            <div style="text-align: center;">
+                 	
+                <h1><Font face="Arial"><Font size="10">INVOICE</Font></Font>
+        
+    			</h1>
+            </div>
+            <div class="dateInvoice">
+                <p>Date - 11/24/22</p>
+                <p>Invoice No. - I1281</p>
+            </div>
+            <div class="borderLine">
+                
+            </div><br/>
+            <h5 class="billTo">
+                BILL TO
+            </h5>
+            <pre class="contactDetails">	
+					Contact Name: Saswata Banerjee				             
+					Client Company Name: VodaCom Tech				             
+					Address:2 Leisure Lane,City, CA,, 124575					          
+					Phone: 92342934					             
+					Email: saswata@reddif.com
+			</pre><br/>
+            
+            <div class="borderLine">
+                
+            </div><br/>
+            
+            <div class="helloSaswata">
+                <p>Hello Saswata,</p>
+            </div>
+            
+            <div>
+                <pre class="contactDetails">
+					 Please find attached the Invoice details for the period ending  July,2022. Please pay it 
+					 before the Due Date of 1st August,2022. If you have any questions feel free to contact us
+					 on the contact information provided below.</pre>
+            </div>
+            
+            <table align="center">
+                <tr>
+                    <th bgcolor="#5b9bd5" align="center">Phase</th>
+                    <th bgcolor="#5b9bd5" align="center">Resources</th>
+                    <th bgcolor="#5b9bd5" align="center">Consumed<br/> Hrs/<br/> Resource</th>
+                    <th bgcolor="#5b9bd5" align="center">Rate</th>
+                    <th bgcolor="#5b9bd5" align="center">Total(for the <br/>phase)</th>
+                </tr>
+                <tr>
+                    <td rowspan="3" align="center">
+                        Requirements
+                    </td>
+                    <td class="pad">Tech Lead</td>
+                    <td align="center">40</td>
+                    <td>$140</td>
+                    <td rowspan="3">$9000</td>
+                </tr>
+                <tr>
+                    <td class="pad">Project Manager</td>
+                    <td>35</td>
+                    <td>$140</td>
+                </tr>
+                <tr>
+                    <td class="pad">Software Architect</td>
+                    <td>30</td>
+                    <td>$160</td> 
+                </tr>
+        
+                <tr>
+                    <td rowspan="3">
+                        Development
+                    </td>
+                    <td class="pad">Senior Developer</td>
+                    <td align="center">45</td>
+                    <td>$120</td>
+                    <td rowspan="3">$1000</td> 
+                </tr>
+                <tr>
+                    <td class="pad">Junior Developer</td>
+                    <td>40</td>
+                    <td>$80</td>
+                </tr>
+        
+                <tr>
+                    <!-- <td>6</td> -->
+                    <td class="pad">Project Manager</td>
+                    <td>20</td>
+                    <td>$140</td>
+                </tr>
+        
+                <tr>
+                    <td rowspan="3">
+                        Quality Analysis
+                    </td>
+                    <td class="pad">Senior Tester</td>
+                    <td>40</td>
+                    <td>$120</td>
+                    <td>$10000</td>    
+                </tr>
+        
+        
+                <tr> 
+                    <td class="pad">Junior Tester</td>
+                    <td>30</td>
+                    <td>$80</td>
+                </tr>
+    	</table>
+            
+        <div class="grandTotal2">
+            <pre>Grand<br/>Total</pre>
+        </div>
+            
+        <!--<div class="grandTotal">
+            <p>Grand<br/>Total</p>
+            <p>$29000</p>
+            
+            
+        </div>
+        <div class="amountTotal">
+            <p>$29000</p>
+        </div>-->
+        
+        <div class="amountTotal">
+            <p>$29000</p>
+        </div>
+            
+        <div class="remarks">
+            <p>Remarks/ Payment Instruction: </p>
+        </div>
+        
+            
+         <div class="taxRate">
+             <p>Tax Rate  :  ___________________________ </p> 
+         </div>
+                    
+         <div class="subTotal">
+             <p>Total Tax  :  ___________________________</p> 
+          </div>
+                    
+          <div class="rightSide">
+              <p>Sub Total :  __________________________</p> 
+           </div>
+        
+            
+            
+        <!--<div class="parent">
+            <pre>
+				Tax Rate  :  ___________________________
+				Total Tax :  ___________________________
+				Sub Total :  ___________________________ 
+			</pre>
+        </div>-->
+            
+        <div class="makeBox">
+          
+        </div><br/>
+            
+        <br/><div class="borderLine">
+            
+            </div><br/><br/>
+            
+        <pre style="text-align: center;">Company Name/Logo                                                       Company Address</pre>
+        
+            
+        
+    		
+ 	</body>
+              
+    
+    
+    
+    
+</apex:page>

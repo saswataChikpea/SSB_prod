@@ -1,0 +1,60 @@
+<aura:component controller = "ProjectCls" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+  access="global">
+   
+    <aura:attribute name="ProjectList" type="Object"/>
+    <aura:attribute name="editVisible" type="Boolean" default='false'/>
+    <aura:attribute name="editVisible1" type="Boolean" default='false'/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+     <aura:attribute name="hide" type="Boolean" default='false'/>
+    
+     <aura:registerEvent name="loadMyEvent" type="c:AddPhaseConection"/>
+   
+    
+    
+    <lightning:recordEditForm recordId="{!v.recordId}"
+objectApiName ="ChikPeaSSB__Chikpea_Project__c"
+onsuccess="{!c.UpdatePhase}">    
+        
+<table class="TableHeading"  border="3" cellpadding="15">
+<tbody>
+<tr style="height: 18px;">
+<td class="TableHeading" colspan="2">Project Estimates</td>
+</tr>
+<tr>
+<td class = "TableBg">Hours
+    <lightning:outputField fieldName="ChikPeaSSB__Estimated_Hours__c" class="slds-form-element_2-col"  variant="label-hidden"/>
+    </td>
+<td class = "TableBg">Profit
+    <lightning:outputField fieldName="ChikPeaSSB__Target_Profit__c" class="slds-form-element_2-col" variant="label-hidden"/></td>
+</tr>
+<tr>
+<td class = "TableBg">Rate
+    <lightning:outputField fieldName="ChikPeaSSB__Estimated_Rate__c" class="slds-form-element_2-col" variant="label-hidden"/></td>
+<td class = "TableBg">Cost
+    <lightning:outputField fieldName="ChikPeaSSB__Estimated_Cost__c" class="slds-form-element_2-col" variant="label-hidden"/></td>
+</tr>
+    
+<tr style="height: 18px;">
+<td class="TableHeading" colspan="2">Project Actuals</td>
+</tr>
+<tr>
+<td class = "TableBg">Hours
+    <lightning:outputField fieldName="ChikPeaSSB__Total_Act_hours__c" class="slds-form-element_2-col" variant="label-hidden" />
+    </td>
+<td class = "TableBg">Profit
+    <lightning:outputField fieldName="ChikPeaSSB__Final_Profit__c" class="slds-form-element_2-col" variant="label-hidden"/></td>
+</tr>
+<tr>
+<td class = "TableBg">Rate 
+    <lightning:outputField fieldName="ChikPeaSSB__Final_Rate__c" class="slds-form-element_2-col" variant="label-hidden"/></td>
+<td class = "TableBg">Cost
+    <lightning:outputField fieldName="ChikPeaSSB__Final_Cost__c" class="slds-form-element_2-col" variant="label-hidden"/></td>
+</tr>
+</tbody>
+</table>      
+        
+
+
+    </lightning:recordEditForm>
+</aura:component>

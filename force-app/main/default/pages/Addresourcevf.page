@@ -1,0 +1,174 @@
+<apex:page standardController="Project_Phase__c" extensions="AddResourceCls" Tabstyle="Resource__c">
+    
+    <style>
+        
+        .h1 
+        { 
+        display: block;font-size: 1.2em;
+        font-weight: bold;
+        }
+        body .pbBody table.list tr.headerRow td, body .pbBody table.list tr.headerRow th {
+        background: #a0c3bd9e;
+        border-width: 0 0 1px 1px;
+        border-color: #1b1313;
+        color: #000;
+        font-size: .9em;
+        font-weight: bold; 
+        padding: 5px 6px 6px 6px;
+        }
+        .rules_form2 * {
+        /* background: #eacdc62b;*/
+        
+        }
+        body .bRelatedList .pbBody table.list, body .apexp .pbBody table.list {
+        border: 2px solid #307caf;
+        }
+    </style>
+    <div class="slds">
+        <div id="onload_div" style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 1100;
+                                    //background-color: rgba(0, 0, 0, 0.39);
+                                    background-image: url('{!$Resource.overlay_SSB}')">
+            <center>
+                <div style="margin-top:15%;color:blue;background-color:#FFF;width:300px;height: 100px;border: 3px solid #848490;border-radius: 10px;">
+                    <apex:image url="{!$Resource.LoadImg}" width="50" height="50" style="margin-top:20px;"/>
+                    <br/>
+                    Please Wait
+                </div>
+            </center>
+        </div>
+        
+        <div id="msgdiv"><apex:pageMessages id="msg" rendered="true"/></div>
+        
+        <apex:form >
+            
+            <apex:pageBlock title="Add Items" >
+                <apex:message />
+                <apex:pageBlockButtons location="bottom" >
+                    <apex:commandButton action="{!save}" value="Add"/>
+                    <apex:commandButton action="{!cancel}" value="Cancel"/>
+                </apex:pageBlockButtons>
+                
+                <apex:pageBlockTable value="{!ItemList}" var="a" id="Rateplanblock" >
+                    
+                    <apex:column >
+                        <apex:facet name="header"> <apex:inputCheckbox >
+                            <apex:actionSupport event="onclick" action="{!GetSelected}" onsubmit="checkAll(this)" rerender="Rateplanblock" status="wait"/>
+                            </apex:inputCheckbox></apex:facet>
+                        <apex:inputCheckbox value="{!a.selected}" id="checkedone">
+                            <apex:actionSupport event="onclick" action="{!GetSelected}"  rerender="Rateplanblock"  status="wait"/>
+                        </apex:inputCheckbox></apex:column>
+                    
+                    <apex:column headervalue="Item Name">
+                        <apex:outputLink value="/{!a.itmid}" styleClass="newLink">{!a.Resource}</apex:outputLink>
+                    </apex:column>
+                                             
+                    <apex:column headervalue="{!EstCloumnname}" rendered="{!if(a.ProjectModel =='Agile',false,true)}">
+                        <apex:inputText value="{!a.EstHrs}" onkeypress="return inputLimiter(event,'Numbers');"/>                    
+                    </apex:column>
+                     
+                       
+                    <apex:column rendered="{!if(a.ProjectModel =='Waterfall',false,true)}">
+                        <apex:inputText value="{!a.EstPerc}" onkeypress="return inputLimiter(event,'Numbers');" />                    
+                    </apex:column>
+                    
+                    <apex:column breakBefore="true" rendered="{!a.selected}" colspan="3" >                    
+                        <apex:pageBlockTable value="{!a.rtplans}" var="c" headerClass="rules_form2" styleclass="rules_form2">                        
+                            <apex:column >                    
+                                <apex:inputCheckbox value="{!c.rateplanselected}"  styleClass="rateplancheckedone{!a.itmid}" id="rateplancheckedone">
+                                    <apex:actionSupport event="onclick"  rerender="Rateplanblock" onsubmit="rateplanAll(this,'rateplancheckedone{!a.itmid}')"
+                                                        action="{!GetSelected}"  status="wait"/>
+                                </apex:inputCheckbox>
+                            </apex:column>                                                
+                         <!--   <apex:column headervalue="Rate Plan"> 
+                                <apex:outputLink value="/{!c.rplid}" >{!c.Name}</apex:outputLink>
+                            </apex:column> -->
+                            <apex:column headervalue="Bill cycle" value="{!c.Billcycle}" />
+                         <!--      <apex:column headervalue="Pricing type" value="{!c.Pricingtype}" />
+                            <apex:column headervalue="UOM" value="{!c.UOM}" /> --> 
+                             <apex:column headervalue="Cost Book" value="{!c.costBk}" />
+                            <apex:column headervalue="Rate" value="{!c.Rate}" />
+                            <apex:column headervalue="Cost" value="{!c.Cost}" />  
+                            <apex:column headervalue="Profit" value="{!c.Profit}" />                                                                        
+                        </apex:pageBlockTable>                    
+                    </apex:column>                                
+                </apex:pageBlockTable>  
+                
+            </apex:pageBlock>
+            
+            <apex:actionStatus id="wait">
+                <apex:facet name="start">
+                    <apex:outputPanel id="processTran">
+                        <apex:outputPanel style="position: fixed; top: 0; left: 0; width: 100%; height:100%; z-index: 1100;background-image:url('{!URLFOR($Resource.overlay_SSB)}')" layout="block"> 
+                            <apex:outputText >&nbsp;</apex:outputText>
+                        </apex:outputPanel>
+                        <apex:outputPanel styleClass="loadingPopup" layout="block" > 
+                            <c:Loading1 text="Processing selection..." />
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:facet> 
+            </apex:actionStatus>
+            
+            <apex:actionStatus id="wait1">
+                <apex:facet name="start">
+                    <apex:outputPanel id="processTran1">
+                        <apex:outputPanel style="position: fixed; top: 0; left: 0; width: 100%; height:100%; z-index: 1100;background-image:url('{!URLFOR($Resource.overlay_SSB)}')" layout="block"> 
+                            <apex:outputText >&nbsp;</apex:outputText>
+                        </apex:outputPanel>
+                        <apex:outputPanel styleClass="loadingPopup" layout="block" > 
+                            <c:Loading1 text="Please Wait..." />
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:facet>
+            </apex:actionStatus>
+            
+            
+        </apex:form>
+        <script>
+        function checkAll(cb)
+        {
+            var inputElem = document.getElementsByTagName("input");
+            for(var i=0; i<inputElem.length; i++)
+            {
+                if(inputElem[i].id.indexOf("checkedone")!=-1)
+                    inputElem[i].checked = cb.checked;
+            }            
+        }        
+        function rateplanAll(obj,cssname)
+        {       
+             
+            if(obj.checked){                
+                var cbs = document.getElementsByClassName(cssname);
+                for (var i = 0; i < cbs.length; i++) {
+                    cbs[i].checked = false;
+                }
+                obj.checked = true;                 
+            }
+        }            
+                   
+        function inputLimiter(e,allow) {
+            var AllowableCharacters = '';                
+            if (allow == 'Numbers'){AllowableCharacters='1234567890';}                
+            if (allow == 'Currency'){AllowableCharacters='1234567890.';}        
+            var k = document.all?parseInt(e.keyCode): parseInt(e.which);
+            if (k!=13 && k!=8 && k!=0){
+                if ((e.ctrlKey==false) && (e.altKey==false)) {
+                    return (AllowableCharacters.indexOf(String.fromCharCode(k))!=-1);
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+        
+        function enableForm()
+        {
+            document.getElementById("onload_div").style.display="none";
+            
+        }
+        window.onload=enableForm;
+        
+        
+        </script>
+    </div>
+</apex:page>

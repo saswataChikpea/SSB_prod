@@ -1,0 +1,10 @@
+<aura:component 
+    controller = "Project" 
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+    access="global" >
+    <aura:attribute name="recordId" type="String"  access="global"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onLoad}"/> 
+
+
+</aura:component>

@@ -1,0 +1,15 @@
+<aura:component controller="Uploadresourcestaggingfromcsv" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="Global">
+                
+    <aura:attribute name="Likedisable" type="Boolean" default="false" />
+
+ 
+    <div>
+        <input type="file" class="file" aura:id="file"/>
+
+        <lightning:button label="Upload Hours" aura:id = "submit"
+                          variant="brand" disabled="{!v.Likedisable}" onclick="{!c.CreateRecord}"  />   
+    </div>
+    
+    
+</aura:component>

@@ -1,0 +1,63 @@
+<template>
+    <div class="slds-page-header">
+        <div class="slds-page-header__row">
+          <div class="slds-page-header__col-title">
+            <div class="slds-media">
+              <div class="slds-media__figure">
+                <span class="slds-icon_container slds-icon-standard-opportunity" title="opportunity">
+                  <svg class="slds-icon slds-page-header__icon" aria-hidden="true">
+                    <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+                  </svg>
+                  <span class="slds-assistive-text">TimeSheet Entries</span>
+                </span>
+              </div>
+              <div class="slds-media__body">
+                <div class="slds-page-header__name">
+                  <div class="slds-page-header__name-title">
+                    <h1>
+                      <span class="slds-page-header__title slds-truncate" title="TimeSheet Entries">TimeSheet Entries</span>
+                    </h1>
+                  </div>
+                </div>
+                <p class="slds-page-header__name-meta">Last 10 Job Details</p>
+              </div>
+            </div>
+          </div>
+          <!--Before button-->
+          <lightning-button-group>
+            <lightning-button label="Add" ></lightning-button>
+            <lightning-button label="Delete"></lightning-button>
+            <lightning-button label="Detail View" title="View Detailed TimeSheet Analysis" onclick={handleClick}></lightning-button>
+          </lightning-button-group>          
+          <!--
+          <div class="slds-page-header__col-actions">
+            <div class="slds-page-header__controls">        
+              <div class="slds-page-header__control">
+                <ul class="slds-button-group-list">
+                  <li>
+                    <button class="slds-button slds-button_neutral">Add</button>
+                  </li>
+                  <li>
+                    <button class="slds-button slds-button_neutral">Delete</button>
+                  </li>
+                  <li>
+                    <button class="slds-button slds-button_neutral">Detail View</button>
+                  </li>                  
+                </ul>
+              </div>
+            </div>
+          </div>
+          -->
+          <!--After button-->
+        </div>
+      </div>
+    
+    <!--comment before table -->
+    <div style="height: 300px;">
+        <lightning-datatable
+                key-field="id"
+                data={data}
+                columns={columns}>
+        </lightning-datatable>
+    </div>
+</template>

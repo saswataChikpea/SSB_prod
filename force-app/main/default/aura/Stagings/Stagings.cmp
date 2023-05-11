@@ -1,0 +1,21 @@
+<aura:component controller = "ProjectTableData" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:handler event="c:ResourseStgings" action="{!c.fetchAccounts}"/>
+    <aura:attribute name="Data" type="Resource_Staging__c" />
+    <aura:attribute name="Columns" type="Resource_Staging__c"/>
+    <aura:handler name="init" value="{!this}" action="{!c.fetchAccounts}"/>
+    <aura:attribute name="draftValues" type="Resource_Staging__c" default="[]"/>      
+    <aura:attribute name="paramsvalue" type="string" />      
+   
+    <aura:registerEvent name="navigate" type="c:cardValUpdate"/>
+
+    <div>
+        <lightning:datatable aura:id="StagingsTable"
+                             keyField="Id"
+                             data="{!v.Data}" 
+                         columns="{!v.Columns}" 
+                         onsave="{!c.handleSaveEdition}"
+                         hideCheckboxColumn="true"/>
+        </div>
+       
+</aura:component>

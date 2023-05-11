@@ -1,0 +1,51 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	
+    
+    
+    
+    <lightning:recordEditForm recordId="{!v.recordId}"
+objectApiName ="ChikPeaSSB__Project_Phase__c"
+onsuccess="{!c.UpdatePhase}"
+>
+      
+<table class="TableHeading"  border="3" cellpadding="15">
+<tbody>
+<tr style="height: 18px;">
+<td class="TableHeading" colspan="2">Phase Estimates</td>
+</tr>
+<tr>
+<td class = "TableBg">Hours
+    <lightning:outputField fieldName="ChikPeaSSB__Estimated_Hours__c" class="slds-form-element_2-col"  variant="label-hidden"/>
+    </td>
+<td class = "TableBg">Profit
+    <lightning:outputField fieldName="ChikPeaSSB__Phase_Profit__c" class="slds-form-element_2-col" variant="label-hidden"/></td>
+</tr>
+<tr>
+<td class = "TableBg">Rate
+    <lightning:outputField fieldName="ChikPeaSSB__Estimated_Rate__c" class="slds-form-element_2-col" variant="label-hidden"/></td>
+<td class = "TableBg">Cost
+    <lightning:outputField fieldName="ChikPeaSSB__Estimated_Cost__c" class="slds-form-element_2-col" variant="label-hidden"/></td>
+</tr>
+    
+<tr style="height: 18px;">
+<td class="TableHeading" colspan="2">Phase Actuals</td>
+</tr>
+<tr>
+<td class = "TableBg">Hours
+    <lightning:outputField fieldName="ChikPeaSSB__Act_hours__c" class="slds-form-element_2-col" variant="label-hidden" />
+    </td>
+<td class = "TableBg">Profit
+    <lightning:outputField fieldName="ChikPeaSSB__Actual_Profit__c" class="slds-form-element_2-col" variant="label-hidden"/></td>
+</tr>
+<tr>
+<td class = "TableBg">Rate 
+    <lightning:outputField fieldName="ChikPeaSSB__Actual_Rate__c" class="slds-form-element_2-col" variant="label-hidden"/></td>
+<td class = "TableBg">Cost
+    <lightning:outputField fieldName="ChikPeaSSB__Actual_Cost__c" class="slds-form-element_2-col" variant="label-hidden"/></td>
+</tr>
+</tbody>
+</table>      
+    
+    </lightning:recordEditForm> 
+    
+</aura:component>

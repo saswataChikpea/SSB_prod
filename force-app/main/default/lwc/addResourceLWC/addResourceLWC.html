@@ -1,0 +1,129 @@
+<template>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-0" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="main_body">
+            <span class="details-heading">Add new resource</span>
+            <div class="table_container">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <!-- <th if:true={editData}></th> -->
+                            <th class="table_header"></th>
+                            <th class="table_header" scope="col">
+                                <div class="slds-truncate slds-line-clamp" style="display: flex;" title="Name">
+                                    Resource Name
+                                </div>
+                            </th>
+                            <th class="table_header" scope="col">
+                                <div class="slds-truncate slds-line-clamp" style="display: flex;" title="Name">
+                                    Estimated Hours
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template if:true={resourceList.length} for:each={resourceList} for:item="row">
+                            <tr key={row.itmid}>
+                                <th scope="col" style="font-size: small;">
+                                    <lightning-input type="checkbox" label="Click" variant="label-hidden"
+                                        checked={row.selected} data-id={row.itmid} onchange={handleResourceSelect}>
+
+                                    </lightning-input>
+                                </th>
+                                <th scope="col" style="font-size: small;">
+                                    <div class="nonEditableCell">{row.Resource}</div>
+                                </th>
+                                <th scope="col" style="font-size: small;">
+                                    <div class="nonEditableCell">
+                                        <lightning-input type="text" name={row.Name} data-id={row.itmid} label="None" value={row.EstHrs}
+                                            variant="label-hidden" onchange={handleAddInput}>
+                                        </lightning-input>
+                                    </div>
+                                </th>
+
+                            </tr>
+                            <tr key={row.Resource} if:true={row.selected}>
+                                <th colspan="3">
+                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered ">
+                                        <thead>
+                                            <tr class="slds-line-height_reset">
+                                                <!-- <th if:true={editData}></th> -->
+                                                <th class="table_header"></th>
+                                                <th class="table_header" scope="col">
+                                                    <div class="slds-truncate slds-line-clamp" style="display: flex;"
+                                                        title="Name">
+                                                        Bill Cycle
+                                                    </div>
+                                                </th>
+                                                <th class="table_header" scope="col">
+                                                    <div class="slds-truncate slds-line-clamp" style="display: flex;"
+                                                        title="Name">
+                                                        Cost Book
+                                                    </div>
+                                                </th>
+                                                <th class="table_header" scope="col">
+                                                    <div class="slds-truncate slds-line-clamp" style="display: flex;"
+                                                        title="Name">
+                                                        Rate
+                                                    </div>
+                                                </th>
+                                                <th class="table_header" scope="col">
+                                                    <div class="slds-truncate slds-line-clamp" style="display: flex;"
+                                                        title="Name">
+                                                        Cost
+                                                    </div>
+                                                </th>
+                                                <th class="table_header" scope="col">
+                                                    <div class="slds-truncate slds-line-clamp" style="display: flex;"
+                                                        title="Name">
+                                                        Profit </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template if:true={row.rtplans.length} for:each={row.rtplans}
+                                                for:item="ratePlan">
+
+                                                <tr key={ratePlan.rplid}>
+                                                    <th scope="col" style="font-size: small;">
+                                                        <lightning-input type="checkbox" label="Click"
+                                                            variant="label-hidden" data-rate-plan={ratePlan.rplid}
+                                                            data-id={row.itmid} checked={ratePlan.rateplanselected}
+                                                            onchange={handleRatePlanSelect}>
+                                                        </lightning-input>
+                                                    </th>
+                                                    <th scope="col" style="font-size: small;">
+                                                        <div class="nonEditableCell">{ratePlan.Billcycle}</div>
+                                                    </th>
+                                                    <th scope="col" style="font-size: small;">
+                                                        <div class="nonEditableCell">{ratePlan.costBk}</div>
+                                                    </th>
+                                                    <th scope="col" style="font-size: small;">
+                                                        <div class="nonEditableCell">{ratePlan.Rate}</div>
+                                                    </th>
+                                                    <th scope="col" style="font-size: small;">
+                                                        <div class="nonEditableCell">{ratePlan.Cost}</div>
+                                                    </th>
+                                                    <th scope="col" style="font-size: small;">
+                                                        <div class="nonEditableCell">{ratePlan.Profit}</div>
+                                                    </th>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </th>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+            <div class="slds-grid slds-align_absolute-center" style="margin-top: 3rem;">
+                <button class="slds-button slds-button_brand" onclick={closeModal}
+                    title="Add"><label>ADD</label></button>
+                <button class="slds-button slds-button_neutral" name="CANCEL" onclick={closeModal}
+                    title="Cancel">Cancel</button>
+
+            </div>
+        </div>
+    </section>
+</template>

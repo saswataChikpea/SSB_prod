@@ -1,0 +1,13 @@
+.THIS .TableHeading {
+		width: 100%; background-color: darkgray; text-align: center;font-weight: bold;padding: 6px;
+}
+ .THIS {
+    
+        background-color: gainsboro;
+    
+} 
+
+
+.THIS .TableBg {
+    background-color: gainsboro;border-color: #FEFFFF;text-align: center;
+}

@@ -1,0 +1,15 @@
+<aura:component controller ="csvDownloadCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">          
+             
+        <lightning:spinner alternativeText="Loading" size="large" />
+
+    <!--aura init handler , call js "loadContactList" function on component load, and display contact data on table-->   
+    <aura:handler name="init" value="{!this}" action="{!c.loadContactList}"/> 
+     <aura:handler  name="init" value="{!this}" action="{!c.downloadCsv}"/> 
+    
+    <!--Declare Attribute for store Contact Records List-->  
+    <aura:attribute name="ListOfprojects" type="Chikpea_Project__c[]"/> 
+    <!--<aura:attribute name="ProjectName" type="Chikpea_Project__c[]"/> -->
+
+    
+
+</aura:component>

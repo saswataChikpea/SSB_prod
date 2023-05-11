@@ -1,0 +1,280 @@
+<apex:page standardController="ChikPeaO2B__Invoice__c" extensions="InvoicePDFController" standardStylesheets="true" renderAs="pdf" applyHtmlTag="false" showHeader="false">
+    <html>
+       <head>
+           <style>
+           body{
+                	size: A4;
+                	margin: 0 auto;
+                	margin-top: 20px;
+                	margin-bottom: 60px;
+                	margin-left: 30px;
+                	margin-right: 30px;
+                	font-family: Arial;
+                	
+                }
+                .tableStyle{
+                	border: 1px solid #5b9bd5;
+                    text-align: center;
+                    border-collapse: collapse;
+                    padding: 10px;
+                }
+           		.dateInvoice{
+                	margin-left : 500px;
+                }
+                
+                .borderLine{
+                	border : 0.5px solid black;
+                	margin-left: 350px;
+                	margin-right: 330px;
+                }
+                .billTo{
+                	color: blue;
+                	border-bottom: 1px solid #5b9bd5;
+                	font-family: sans-serif;
+                	display:inline;
+                }
+                .contactDetails{
+                	text-align: left;
+                	margin-left: 40px;
+                	
+                }
+                .helloSaswata{
+                	margin-left: 350px;
+                }
+                .grandTotal{
+                	margin-left : 780px;
+                	padding : 10px;
+                	width: 70px;
+                	text-decoration : underline;
+            		<!--display : inline-block;-->
+                	float : left;
+                	
+                }
+                .grandTotal2{
+                	margin-left : 780px;
+                	
+            		<!--display : inline-block;-->
+                	float : left;
+                	
+                }
+                .amountTotal
+                {
+                	padding : 10px;
+                	margin-left : 850px;
+                }
+                .pad{
+                	padding-top : 5px;
+                	padding-bottom : 5px;
+                }
+                .remarks{
+                	margin-left: 350px;
+                	display : inline-block;
+                }
+                .parent{
+                	float:right;
+                	margin-left:550px;
+                }
+                .taxRate{
+                	float : left;
+                	margin-left: 695px;
+                	
+                	
+                }
+                .subTotal{
+                	float : left;
+                	margin-left: 695px;
+                }
+                .rightSide{
+                	float : left;
+                	margin-left: 695px;
+                }
+                .makeBox{
+                	border: 1px solid black;
+                	margin-left : 350px;
+                	height : 65px;
+                	width : 240px;
+                }
+                .borderLine{
+                	border: 0.3px solid black;
+                }    
+           </style>
+       </head>
+        
+       <body>
+       <pre>Company Name/Logo                                                   Company Address</pre>
+            <div style="text-align: center;">
+                 	
+                <h1><Font style="font-family: sans-serif;"><Font size="10">INVOICE</Font></Font>
+        
+    			</h1>
+            </div>
+            <div class="dateInvoice">
+                <p>Date - <apex:outputText value="{0,date,MM/dd/yy}">
+                    			<apex:param value="{!NOW()}"/>
+                    	  </apex:outputText></p>
+                <p>Invoice No. - {!ChikPeaO2B__Invoice__c.name}</p>
+            </div>
+            <div style="border : 0.3px solid black;">
+                
+            </div><br/>
+            <h5 class="billTo">
+                BILL TO
+            </h5>
+            <p style="text-align: left;
+                      font-family: sans-serif;
+                      font:9pt;">	
+                	<b>Contact Name:</b>{!contactName}<br/>				             
+                	<b>Client Company Name:</b>{!accountName}<br/>				             
+                    <b>Address:</b><!--{!wonAccList.BillingStreet}--><br/>					          
+                    <b>Phone:</b>{!contactPhone}<br/>					             
+                    <b>Email:</b><span style="color: #5b9bd5;
+                                              border-bottom: 1px solid #5b9bd5;"><!--{!wonConList.Email}--> </span>
+			</p>
+            
+            <div style="border: 0.3px solid black;">
+                
+            </div>
+            
+            <div>
+                <p><!--{!invoice.ChikPeaO2B__Billing_Contact__r.name}--></p>
+            </div>
+            
+            <div>
+                <p style="text-align: left;">Please find attached the Invoice details for the period ending  July,2022. Please pay it 
+					 before the Due Date of 1st August,2022. If you have any questions feel free to contact us
+					 on the contact information provided below.</p>
+            </div> 
+           <table align="center" class="tableStyle" style="margin-left: 50px;
+                      margin-right:70px;
+                      font:9pt; 
+               		  ">
+            <tr style="background-color:#5b9bd5;
+                       ">
+                <th style="padding-left:50px;
+                           padding-right:50px">Phase</th>
+                <th class="tableStyle" style="
+                           padding-left:30px;
+                           padding-right:30px">Resources</th>
+                <th style="
+                           padding-left:30px;
+                           padding-right:30px">Consumed<br/>Hrs/<br/>Resource</th>
+                <th style="
+                           padding-left:30px;
+                           padding-right:30px">Rate</th>
+                <th style="
+                           padding-left:30px;
+                           padding-right:30px">Total(for<br/>the phase)</th>
+            </tr>
+            <tr>
+                <td class="tableStyle" rowspan="3"><!--{!tableDataR1.ChikPeaSSB__Phase__r.name}--></td>
+                <td class="tableStyle"><!--{!tableDataR1.ChikPeaSSB__Item__r.name}--></td>
+                <td class="tableStyle"><!--{!tableDataR1.ChikPeaSSB__Estimated_Hours__c}--></td>
+                <td class="tableStyle"><!--${!tableDataR1.ChikPeaSSB__Rate__c}--></td>
+                <td class="tableStyle" rowspan="3"><!--${!sumR1}--></td>
+            </tr>
+            
+            
+            <tr>
+                <td class="tableStyle"><!--{!tableDataR2.ChikPeaSSB__Item__r.name}--></td>
+                <td class="tableStyle"><!--{!tableDataR2.ChikPeaSSB__Estimated_Hours__c}--></td>
+                <td class="tableStyle"><!--${!tableDataR2.ChikPeaSSB__Rate__c}--></td>
+            </tr>
+            
+            <tr>
+               <td class="tableStyle"><!--{!tableDataR3.ChikPeaSSB__Item__r.name}--></td>
+                <td class="tableStyle"><!--{!tableDataR3.ChikPeaSSB__Estimated_Hours__c}--></td>
+                <td class="tableStyle"><!--${!tableDataR3.ChikPeaSSB__Rate__c}--></td> 
+            </tr>
+            
+            
+            <tr>
+                <td class="tableStyle" rowspan="3">
+                        <!--{!tableDataR4.ChikPeaSSB__Phase__r.name}--></td>
+                <td class="tableStyle"><!--{!tableDataR4.ChikPeaSSB__Item__r.name}--></td>
+                <td class="tableStyle"><!--{!tableDataR4.ChikPeaSSB__Estimated_Hours__c}--></td>
+                <td class="tableStyle"><!--${!tableDataR4.ChikPeaSSB__Rate__c}--></td>
+                <td class="tableStyle" rowspan="3"><!--${!sumR2}--></td>
+                    
+            </tr>
+            
+            <tr>
+                <td class="tableStyle"><!--{!tableDataR5.ChikPeaSSB__Item__r.name}--></td>
+                <td class="tableStyle"><!--{!tableDataR5.ChikPeaSSB__Estimated_Hours__c}--></td>
+                <td class="tableStyle"><!--${!tableDataR5.ChikPeaSSB__Rate__c}--></td>
+            </tr>
+            
+            <tr>
+                <td class="tableStyle"><!--{!tableDataR6.ChikPeaSSB__Item__r.name}--></td>
+                <td class="tableStyle"><!--{!tableDataR6.ChikPeaSSB__Estimated_Hours__c}--></td>
+                <td class="tableStyle"><!--${!tableDataR6.ChikPeaSSB__Rate__c}--></td>
+            </tr>
+            
+            <tr>
+                <td class="tableStyle" rowspan="2"><!--{!tableDataR7.ChikPeaSSB__Phase__r.name}--></td>
+                    
+                <td class="tableStyle"><!--{!tableDataR7.ChikPeaSSB__Item__r.name}--></td>
+                <td class="tableStyle"><!--{!tableDataR7.ChikPeaSSB__Estimated_Hours__c}--></td>
+                <td class="tableStyle"><!--${!tableDataR7.ChikPeaSSB__Rate__c}--></td>
+                <td class="tableStyle" rowspan="2"><!--${!sumR3}--></td>    
+             </tr>
+            
+            <tr style="text-align:center;
+                       ">
+                <td class="tableStyle"><!--{!tableDataR8.ChikPeaSSB__Item__r.name}--></td>
+                <td class="tableStyle"><!--{!tableDataR8.ChikPeaSSB__Estimated_Hours__c}--></td>
+                <td class="tableStyle"><!--${!tableDataR8.ChikPeaSSB__Rate__c}--></td>
+            </tr>
+            
+            <tr style="text-align:center;
+                       ">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="tableStyle"><!--Grand Total--></td>
+                <td class="tableStyle"><!--${!sumTotal}--></td>
+                
+            </tr>
+            </table><br/>
+            
+        <table>
+            <tr>
+                <td>Remarks/ Payment Instruction:</td>
+            </tr>
+            <tr>
+                <td><div style="border: 1px solid black;
+                	
+                	height : 65px;
+                	width : 240px;">
+        		</div>
+                </td>
+            </tr>
+        </table>
+        
+            
+        <table style="margin-left:360px;
+                      margin-top:-90px;
+                      z-index:1;
+                      font-family:sans-serif;
+                      font:9pt;">
+        <tr>
+            <td style="text-align:right;">Tax Rate  :  __________________________</td>
+        </tr>  
+        <tr>
+            <td style="text-align:right;">Total Tax  :  __________________________</td>
+        </tr>
+        <tr>
+            <td style="text-align:right;">Sub Total  :  __________________________</td>
+        </tr>
+        </table><br/>
+            
+            
+        <br/><br/><div style="border : 0.3px solid black;">
+            
+            </div>
+            
+        <pre style="text-align: left;">Company Name/Logo                                                   Company Address</pre>
+        
+     
+       </body>
+    </html>
+</apex:page>

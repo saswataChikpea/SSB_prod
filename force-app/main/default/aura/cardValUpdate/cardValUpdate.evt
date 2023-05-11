@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Event template to update card component based on the update in table component" >
+ 
+</aura:event>

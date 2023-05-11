@@ -1,0 +1,55 @@
+<aura:component controller ="ProjectTableData" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name ="Stafflist" type="Staffing__c"/>
+    
+    <lightning:recordEditForm recordId="{!v.recordId}"
+                              objectApiName ="ChikPeaSSB__Staffing__c"
+                              onsuccess="{!c.UpdateProject}">
+        
+        
+        <table style="border-collapse: collapse; width: 99.5041%; height: 327px;" border="3">
+<tbody>
+<tr>
+<td style="width: 100%;">
+    <table style="height: 294px; width: 100.165%; border-collapse: collapse;" border="0" cellpadding="5">
+<tbody>
+<tr style="height: 20px;">
+<td style="width: 50%; height: 20px;">Name</td>
+<td style="width: 50%; height: 20px;"><lightning:outputField fieldName="ChikPeaSSB__Work_Contact__c" class="slds-form-element_2-col" /></td>
+</tr>
+<tr style="height: 19px;">
+<td style="width: 50%; height: 19px;"><lightning:outputField fieldName="ChikPeaSSB__Employee_Status__c" class="slds-form-element_2-col" /></td>
+<td style="width: 50%; height: 19px;"><lightning:outputField fieldName="ChikPeaSSB__Personal__c" class="slds-form-element_2-col" />
+    </td>
+</tr>
+<tr style="height: 19px;">
+<td style="width: 50%; height: 19px;"><lightning:outputField fieldName="ChikPeaSSB__Roles__c" class="slds-form-element_2-col" /></td>
+<td style="width: 50%; height: 19px;"><lightning:outputField fieldName="ChikPeaSSB__Location__c" class="slds-form-element_2-col" /></td>
+</tr>
+<tr style="height: 10px;">
+<td style="width: 50%; height: 10px;"><lightning:outputField fieldName="ChikPeaSSB__Certifications__c" class="slds-form-element_2-col" />&nbsp;</td>
+<td style="width: 50%; height: 10px;"><lightning:outputField fieldName="ChikPeaSSB__Time_Zone__c" class="slds-form-element_2-col" /></td>
+</tr>
+<tr style="height: 226px;">
+<td style="width: 50%; height: 226px;">&nbsp;</td>
+<td style="width: 50%; height: 226px;">&nbsp;
+    <lightning:button variant="Success" label="CV" title="CV" onclick="{! c.handleClick }" />
+    <lightning:button variant="brand" label="Invite" title="Invite" onclick="{! c.sendMail}" />
+    <lightning:button variant="destructive" label="Del" title="Del" onclick="{! c.handleDel }" />
+    <lightning:button variant="brand-outline" label="Linkedin" title="Linkedin" onclick="{! c.handleClick }" />
+	<lightning:button variant="brand-outline" label="Email" title="Email" onclick="{! c.handleClick }" />
+
+    </td>
+</tr>
+</tbody>
+</table>
+    
+    </td>
+</tr>
+</tbody>
+</table>
+
+  
+    </lightning:recordEditForm>
+</aura:component>

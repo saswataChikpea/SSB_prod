@@ -1,0 +1,13 @@
+.THIS .TableHeading {
+		width: 145px; background-color: #a9a9a9; text-align: center;font-weight: bold;padding: 6px;
+}
+.THIS .Tableborder {
+		height: 47%;
+}
+.THIS .TableBg {
+    background-color: #dcdcdc;
+}
+
+.THIS .ButtonAlign {
+    text-align: right;
+}

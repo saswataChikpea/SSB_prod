@@ -1,0 +1,23 @@
+.THIS .slds-card__header{
+        background-color: darkgray;
+}
+
+.THIS .TableBg {
+    background-color: gainsboro;border-color: #FEFFFF;
+}
+
+.THIS .TableHeading {
+		background-color: darkgray; text-align: center;font-weight: bold;padding: 6px;
+}
+.THIS{
+    background-color: gainsboro;
+}
+.THIS header {
+    padding-bottom: .5em;
+}
+
+.THIS .ssb_button{
+    margin-top: 0.2em;
+    padding: 1em 0.9em;
+    height: 2.5em;
+}
